@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TCP Congestion Control | Virtual Lab</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#home"><span class="brand-mark">TCP</span><span>VIRTUAL <b>LAB</b></span></a>
+    <nav id="mainNav">
+      <a href="#home" class="nav-link active" data-page="home">Home</a>
+      <a href="#theory" class="nav-link" data-page="theory">Theory</a>
+      <a href="#experiment" class="nav-link" data-page="experiment">Experiment</a>
+      <a href="#results" class="nav-link" data-page="results">Results</a>
+      <a href="#quiz" class="nav-link" data-page="quiz">Quiz</a>
+    </nav>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">☰</button>
+  </header>
+
+  <main>
+    <section id="home" class="page active-page">
+      <div class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="pulse"></span> DATA COMMUNICATION NETWORKS · TRANSPORT LAYER</div>
+          <h1>Understand the flow.<br><span>Control the congestion.</span></h1>
+          <p class="hero-text">Explore how TCP adjusts its transmission rate, responds to packet loss, and keeps a network stable through an interactive virtual laboratory.</p>
+          <div class="hero-actions">
+            <button class="btn primary" data-go="experiment">Launch experiment <span>→</span></button>
+            <button class="btn secondary" data-go="theory">Explore theory</button>
+          </div>
+          <div class="hero-note"><span class="dot-green"></span> Interactive TCP Reno teaching simulation</div>
+        </div>
+        <div class="network-card">
+          <div class="network-card-head"><span>NETWORK TOPOLOGY</span><span class="live-tag">● LIVE MODEL</span></div>
+          <div class="network-flow">
+            <div class="network-node"><div class="node-icon">⌁</div><b>Sender</b><small>TCP source</small></div>
+            <div class="packet-track"><i></i><i></i><i></i><span>PACKETS</span></div>
+            <div class="network-node router"><div class="node-icon">◇</div><b>Router</b><small>Network path</small></div>
+            <div class="packet-track reverse"><i></i><i></i><i></i><span>ACKs</span></div>
+            <div class="network-node"><div class="node-icon">▣</div><b>Receiver</b><small>TCP destination</small></div>
+          </div>
+          <div class="network-card-foot"><span>Congestion window</span><strong>cwnd <em>↗</em></strong></div>
+        </div>
+      </div>
+      <div class="section-heading">
+        <div><div class="eyebrow">LEARNING MODULES</div><h2>Explore the experiment</h2></div>
+        <p>Learn each TCP mechanism, then combine them in one simulation.</p>
+      </div>
+      <div class="module-grid">
+        <article class="module-card"><span class="module-number">01</span><div class="module-icon">↗</div><h3>Slow Start</h3><p>Observe how the congestion window grows rapidly at the beginning.</p><button data-go="experiment" class="text-button">Open simulation →</button></article>
+        <article class="module-card"><span class="module-number">02</span><div class="module-icon">⌁</div><h3>Congestion Avoidance</h3><p>See the gradual, linear increase after reaching the threshold.</p><button data-go="experiment" class="text-button">Open simulation →</button></article>
+        <article class="module-card"><span class="module-number">03</span><div class="module-icon">⚡</div><h3>Loss & Recovery</h3><p>Introduce packet loss and compare Reno's recovery responses.</p><button data-go="experiment" class="text-button">Open simulation →</button></article>
+      </div>
+      <div class="callout"><div><div class="eyebrow">YOUR VIRTUAL LAB</div><h2>Experiment. Observe. Understand.</h2><p>Change parameters, trigger network events and study the congestion-window graph.</p></div><button class="btn primary" data-go="experiment">Start learning →</button></div>
+    </section>
+
+    <section id="theory" class="page">
+      <div class="page-heading"><div class="eyebrow">KNOW THE CONCEPTS</div><h1>TCP congestion control</h1><p>TCP congestion control regulates how much data a sender injects into the network to reduce the risk of overwhelming network resources.</p></div>
+      <div class="theory-grid">
+        <article class="info-card wide"><span class="tag">CORE IDEA</span><h2>What is congestion?</h2><p>Network congestion occurs when the amount of data entering the network exceeds the available capacity. Queues may grow, delay may increase and packets may be dropped.</p><p>TCP uses feedback, including acknowledgements and loss signals, to adjust its sending rate.</p></article>
+        <article class="info-card"><span class="tag">VARIABLE</span><h2>cwnd</h2><p><b>Congestion window:</b> limits the amount of unacknowledged data a sender may have in the network.</p></article>
+        <article class="info-card"><span class="tag">VARIABLE</span><h2>ssthresh</h2><p><b>Slow-start threshold:</b> marks the transition from Slow Start to Congestion Avoidance in this model.</p></article>
+        <article class="info-card"><span class="tag">PHASE 01</span><h2>Slow Start</h2><p>Starts with a small congestion window. In the simplified model, cwnd approximately doubles each round-trip time (RTT) while below ssthresh.</p></article>
+        <article class="info-card"><span class="tag">PHASE 02</span><h2>Congestion Avoidance</h2><p>Once the threshold is reached, cwnd grows more cautiously, approximately one maximum segment size (MSS) per RTT.</p></article>
+        <article class="info-card"><span class="tag">PHASE 03</span><h2>Fast Retransmit</h2><p>Three duplicate ACKs are treated as a sign that a segment may have been lost. TCP retransmits the missing segment without waiting for a timeout.</p></article>
+        <article class="info-card"><span class="tag">PHASE 04</span><h2>Fast Recovery</h2><p>TCP Reno reduces its sending window after duplicate ACKs and then continues with Congestion Avoidance after recovery.</p></article>
+        <article class="info-card wide"><span class="tag">TIMEOUT EVENT</span><h2>Retransmission timeout</h2><p>A timeout is treated as a stronger congestion signal. In this teaching model, ssthresh is reduced and cwnd returns to 1 MSS before Slow Start begins again.</p></article>
+      </div>
+      <div class="notice"><b>Model note:</b> This website uses a simplified, educational TCP Reno-style model measured in MSS units and RTT rounds. Real TCP implementations include additional rules and implementation-specific details.</div>
+    </section>
+
+    <section id="experiment" class="page">
+      <div class="page-heading"><div class="eyebrow">INTERACTIVE LAB</div><h1>Run the simulation</h1><p>Start the model, watch the congestion window change and introduce loss events to study TCP Reno behaviour.</p></div>
+      <div class="lab-layout">
+        <div class="lab-main">
+          <div class="panel">
+            <div class="panel-title"><div><span class="tag">LIVE SIMULATION</span><h2>Congestion window over time</h2></div><span class="status-pill" id="runStatus">● READY</span></div>
+            <div class="chart-wrap"><canvas id="cwndChart" aria-label="Congestion window versus RTT chart"></canvas></div>
+            <div class="chart-legend"><span><i class="legend-blue"></i> cwnd (MSS)</span><span><i class="legend-dash"></i> ssthresh</span></div>
+          </div>
+          <div class="panel topology-panel">
+            <div class="panel-title"><div><span class="tag">PACKET FLOW</span><h2>Sender → Router → Receiver</h2></div><span class="small-muted" id="rttLabel">RTT: 0</span></div>
+            <div class="flow-visual">
+              <div class="flow-node"><div class="flow-symbol">▤</div><b>Sender</b><small>Transmits data</small></div>
+              <div class="flow-line"><div class="moving-packets" id="movingPackets"><i></i><i></i><i></i></div><span>DATA PACKETS</span></div>
+              <div class="flow-node router-node"><div class="flow-symbol">◇</div><b>Router</b><small id="routerStatus">Normal traffic</small></div>
+              <div class="flow-line ack-line"><div class="moving-packets" id="movingAcks"><i></i><i></i></div><span>ACKNOWLEDGEMENTS</span></div>
+              <div class="flow-node"><div class="flow-symbol">▣</div><b>Receiver</b><small>Receives data</small></div>
+            </div>
+            <div class="event-message" id="eventMessage">Ready. Start the simulation to transmit packets.</div>
+          </div>
+        </div>
+        <aside class="lab-side">
+          <div class="panel controls">
+            <div class="panel-title"><div><span class="tag">CONTROL PANEL</span><h2>Experiment settings</h2></div></div>
+            <label for="initialCwnd">Initial cwnd <output id="initialCwndOut">1 MSS</output></label>
+            <input id="initialCwnd" type="range" min="1" max="5" value="1">
+            <label for="threshold">Initial ssthresh <output id="thresholdOut">16 MSS</output></label>
+            <input id="threshold" type="range" min="4" max="32" step="1" value="16">
+            <label for="speed">Simulation speed <output id="speedOut">1.0×</output></label>
+            <input id="speed" type="range" min="1" max="4" value="2">
+            <div class="control-divider"></div>
+            <label for="lossType">Packet-loss event</label>
+            <select id="lossType"><option value="duplicate">3 duplicate ACKs (Fast Retransmit)</option><option value="timeout">Retransmission timeout</option></select>
+            <button id="lossBtn" class="btn danger full" disabled>⚡ Introduce packet loss</button>
+            <div class="button-row"><button id="startBtn" class="btn primary">▶ Start</button><button id="pauseBtn" class="btn secondary" disabled>Ⅱ Pause</button></div>
+            <button id="resetBtn" class="btn reset full">↻ Reset experiment</button>
+            <p class="control-hint">Tip: Start the simulation and introduce a loss event while it is running.</p>
+          </div>
+          <div class="metrics-grid">
+            <div class="metric"><span>CONGESTION WINDOW</span><strong id="cwndValue">1 <small>MSS</small></strong></div>
+            <div class="metric"><span>SLOW-START THRESHOLD</span><strong id="ssthreshValue">16 <small>MSS</small></strong></div>
+            <div class="metric"><span>ROUND-TRIP TIME</span><strong id="rttValue">0</strong></div>
+            <div class="metric"><span>PACKET-LOSS EVENTS</span><strong id="lossValue">0</strong></div>
+          </div>
+          <div class="panel phase-panel"><span class="tag">CURRENT TCP PHASE</span><h2 id="phaseValue">Ready</h2><p id="phaseDescription">Start the experiment to observe TCP congestion control.</p></div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="results" class="page">
+      <div class="page-heading"><div class="eyebrow">EXPERIMENT SUMMARY</div><h1>Results & observations</h1><p>Review the simulation metrics and use the observations in your lab record.</p></div>
+      <div class="results-grid">
+        <div class="metric"><span>ROUNDS COMPLETED</span><strong id="resultRtt">0</strong></div>
+        <div class="metric"><span>FINAL cwnd</span><strong id="resultCwnd">1 MSS</strong></div>
+        <div class="metric"><span>LOSS EVENTS</span><strong id="resultLoss">0</strong></div>
+        <div class="metric"><span>FINAL PHASE</span><strong id="resultPhase">Ready</strong></div>
+      </div>
+      <div class="panel"><div class="panel-title"><h2>Observation guide</h2><button class="btn secondary small-btn" id="refreshResults">Refresh summary</button></div>
+        <ol class="observation-list">
+          <li>During Slow Start, the congestion window grows exponentially (approximately doubles per RTT in this model).</li>
+          <li>After reaching ssthresh, the simulation enters Congestion Avoidance and increases cwnd linearly.</li>
+          <li>Three duplicate ACKs trigger Fast Retransmit and Fast Recovery in the Reno-style model.</li>
+          <li>A retransmission timeout reduces cwnd to 1 MSS and restarts Slow Start.</li>
+          <li>Packet loss reduces the sending window, helping TCP respond to possible congestion.</li>
+        </ol>
+      </div>
+      <div class="notice"><b>For your lab record:</b> Include the initial cwnd and ssthresh, the event you introduced, screenshots of the graph before and after loss, and a short comparison of duplicate-ACK and timeout responses.</div>
+    </section>
+
+    <section id="quiz" class="page">
+      <div class="page-heading"><div class="eyebrow">CHECK YOUR UNDERSTANDING</div><h1>Knowledge check</h1><p>Answer these questions to test your understanding of TCP congestion control.</p></div>
+      <div class="quiz-card">
+        <div class="quiz-progress"><span id="quizCount">QUESTION 1 OF 5</span><span id="quizScore">SCORE: 0</span></div>
+        <div class="progress-track"><div id="quizProgress"></div></div>
+        <h2 id="questionText"></h2>
+        <div id="answerOptions" class="answer-options"></div>
+        <p id="quizFeedback" class="quiz-feedback" aria-live="polite"></p>
+        <div class="quiz-actions"><button id="nextQuestion" class="btn primary" disabled>Next question →</button><button id="restartQuiz" class="btn reset">Restart quiz</button></div>
+      </div>
+    </section>
+  </main>
+
+  <footer><span>TCP VIRTUAL LAB</span><span>Data Communication Networks · Transport Layer</span><span>Educational simulation</span></footer>
+  <script src="js/app.js"></script>
+</body>
+</html>
