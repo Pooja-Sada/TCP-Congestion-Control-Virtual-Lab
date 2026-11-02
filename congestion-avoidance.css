@@ -283,6 +283,152 @@ body {
     text-decoration: none;
 }
 
+#congestion-avoidance {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 24px 40px;
+    text-align: center;
+}
+
+#congestion-avoidance h1,
+#congestion-avoidance h2,
+#congestion-avoidance p,
+#congestion-avoidance table,
+#congestion-avoidance .ca-stats,
+#congestion-avoidance .ca-controls {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#congestion-avoidance h1 {
+    margin-bottom: 10px;
+}
+
+#congestion-avoidance > p {
+    max-width: 700px;
+    margin-bottom: 26px;
+}
+
+.ca-stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(160px, 1fr));
+    gap: 18px;
+    width: min(100%, 900px);
+    margin: 0 auto 28px;
+}
+
+.ca-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px 16px;
+    text-align: center;
+}
+
+.ca-card h3 {
+    margin: 0 0 10px;
+    color: var(--primary-blue);
+}
+
+.ca-card p {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.ca-graph {
+    width: min(100%, 900px);
+    margin: 0 auto 22px;
+}
+
+.ca-graph h2 {
+    margin-bottom: 14px;
+}
+
+.ca-graph canvas {
+    display: block;
+    width: 100%;
+    height: 350px;
+    max-width: 100%;
+    border-radius: 12px;
+    background: rgba(10, 18, 32, 0.8);
+}
+
+.ca-graph p {
+    margin-top: 12px;
+    display: flex;
+    justify-content: center;
+    gap: 22px;
+    flex-wrap: wrap;
+}
+
+.ca-controls {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 20px auto 14px;
+}
+
+.ca-controls button {
+    min-width: 120px;
+    padding: 11px 18px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background: #1b3556;
+    color: var(--text-main);
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.2s ease;
+}
+
+.ca-controls button:hover {
+    background: var(--bg-hover);
+    transform: translateY(-1px);
+}
+
+#ca-status {
+    margin: 8px auto 30px;
+    max-width: 700px;
+}
+
+#congestion-avoidance table {
+    width: min(100%, 900px);
+    border-collapse: separate;
+    border-spacing: 0 10px;
+    margin: 0 auto 20px;
+    table-layout: fixed;
+    text-align: center;
+}
+
+#congestion-avoidance thead th {
+    padding: 12px 16px;
+    color: var(--primary-blue);
+    font-size: 15px;
+    width: 33.33%;
+}
+
+#congestion-avoidance tbody td {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-left: none;
+    border-right: none;
+    padding: 14px 16px;
+    word-break: break-word;
+}
+
+#congestion-avoidance tbody tr td:first-child {
+    border-left: 1px solid var(--border-color);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+#congestion-avoidance tbody tr td:last-child {
+    border-right: 1px solid var(--border-color);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
 @media (max-width: 700px) {
     .theory-container {
         width: 92%;
@@ -310,5 +456,20 @@ body {
     .theory-footer {
         gap: 12px;
         flex-direction: column;
+    }
+
+    .ca-stats {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    #congestion-avoidance {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ca-stats {
+        grid-template-columns: 1fr;
     }
 }
