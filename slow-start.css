@@ -1,4 +1,6 @@
 
+/* TCP SLOW START SIMULATION */
+
 /* General Styling */
 * {
     margin: 0;
@@ -7,15 +9,15 @@
 }
 
 body {
-    font-family: 'Segoe UI', sans-serif;
-    background: #0b1120;
-    color: #ffffff;
+    font-family: Arial, sans-serif;
+    background: #081426;
+    color: #edf4ff;
     min-height: 100vh;
 }
 
 .container {
-    width: 90%;
-    max-width: 1200px;
+    width: 86%;
+    max-width: 1100px;
     margin: auto;
     padding: 30px 0;
 }
@@ -23,76 +25,78 @@ body {
 /* Header */
 .header {
     text-align: center;
-    padding: 35px 20px;
-    background: linear-gradient(135deg, #172554, #312e81);
-    border-radius: 16px;
-    margin-bottom: 25px;
+    padding: 45px 25px;
+    background: linear-gradient(135deg, #123b70, #176e91);
+    border-radius: 18px;
+    margin-bottom: 30px;
 }
 
 .header h1 {
-    font-size: 32px;
-    color: #60a5fa;
+    font-size: 36px;
+    color: #ffffff;
 }
 
 .header p {
-    margin-top: 10px;
-    color: #cbd5e1;
+    margin-top: 12px;
+    color: #d6eaff;
 }
 
 /* Introduction */
 .intro {
-    background: #172033;
+    background: #11243c;
     padding: 25px;
     border-radius: 12px;
     margin-bottom: 25px;
-    border-left: 4px solid #3b82f6;
+    border: 1px solid #28415e;
+    border-left: 4px solid #70b8ff;
 }
 
 .intro h2 {
-    color: #60a5fa;
+    color: #70b8ff;
     margin-bottom: 12px;
 }
 
 .intro p {
-    color: #cbd5e1;
-    line-height: 1.7;
+    color: #d8e5f5;
+    line-height: 1.8;
 }
 
 /* Dashboard Cards */
 .dashboard {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    gap: 18px;
     margin-bottom: 25px;
 }
 
 .stat-card {
-    background: #172033;
+    background: #11243c;
     padding: 25px;
-    border-radius: 14px;
+    border-radius: 12px;
     text-align: center;
-    border: 1px solid #263650;
-    transition: transform 0.3s;
+    border: 1px solid #28415e;
+    transition: 0.25s;
 }
 
 .stat-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-4px);
+    border-color: #70b8ff;
 }
 
 .stat-card h3 {
-    color: #94a3b8;
+    color: #91a8c6;
     font-size: 16px;
 }
 
 .stat-value {
-    color: #38bdf8;
+    color: #70b8ff;
     font-size: 30px;
     font-weight: bold;
     margin: 18px 0;
 }
 
 .stat-card p {
-    color: #64748b;
+    color: #91a8c6;
     font-size: 13px;
 }
 
@@ -100,19 +104,21 @@ body {
 .simulation,
 .graph-section,
 .rtt-section {
-    background: #172033;
+    background: #11243c;
     padding: 25px;
-    border-radius: 14px;
+    border-radius: 12px;
     margin-bottom: 25px;
+    border: 1px solid #28415e;
 }
 
 .simulation h2,
 .graph-section h2,
 .rtt-section h2 {
-    color: #60a5fa;
+    color: #70b8ff;
     margin-bottom: 20px;
 }
 
+/* Buttons */
 .controls {
     display: flex;
     gap: 15px;
@@ -122,31 +128,34 @@ body {
 button {
     padding: 12px 30px;
     border: none;
-    border-radius: 8px;
+    border-radius: 9px;
     font-size: 15px;
     font-weight: bold;
     cursor: pointer;
-    transition: 0.3s;
+    transition: 0.25s;
 }
 
 #startBtn {
-    background: #16a34a;
-    color: white;
+    background: #155b43;
+    color: #ffffff;
+    border: 1px solid #37c58a;
 }
 
 #pauseBtn {
-    background: #eab308;
-    color: #111827;
+    background: #725719;
+    color: #ffffff;
+    border: 1px solid #eab308;
 }
 
 #resetBtn {
-    background: #dc2626;
-    color: white;
+    background: #632c35;
+    color: #ffffff;
+    border: 1px solid #ff6877;
 }
 
 button:hover {
-    opacity: 0.85;
-    transform: scale(1.04);
+    opacity: 0.9;
+    transform: translateY(-3px);
 }
 
 button:disabled {
@@ -158,33 +167,35 @@ button:disabled {
 /* Current Phase */
 .status {
     margin-top: 25px;
-    padding: 18px;
-    background: #0f172a;
+    padding: 20px;
+    background: #0e2038;
+    border: 1px solid #28415e;
     border-radius: 10px;
 }
 
 .status h3 {
-    color: #94a3b8;
+    color: #91a8c6;
     margin-bottom: 10px;
 }
 
 #phase {
-    color: #4ade80;
+    color: #70b8ff;
     font-weight: bold;
     font-size: 18px;
 }
 
 /* Graph */
 .graph-section p {
-    color: #94a3b8;
+    color: #b9cbe0;
     margin-bottom: 20px;
-    line-height: 1.6;
+    line-height: 1.7;
 }
 
 .graph-container {
     width: 100%;
     height: 350px;
-    background: #0f172a;
+    background: #0e2038;
+    border: 1px solid #28415e;
     border-radius: 10px;
     padding: 15px;
 }
@@ -196,24 +207,27 @@ canvas {
 
 /* RTT History */
 #rttHistory {
-    color: #cbd5e1;
+    color: #d8e5f5;
     line-height: 2;
 }
 
 .rtt-entry {
-    padding: 10px 15px;
+    padding: 12px 15px;
     margin: 8px 0;
-    background: #0f172a;
-    border-left: 3px solid #38bdf8;
+    background: #172f4c;
+    border: 1px solid #28415e;
+    border-left: 3px solid #70b8ff;
     border-radius: 5px;
 }
 
 /* Footer */
 footer {
     text-align: center;
-    padding: 20px;
-    color: #64748b;
+    padding: 25px;
+    color: #91a8c6;
     font-size: 13px;
+    border-top: 1px solid #28415e;
+    margin-top: 30px;
 }
 
 /* Responsive Design */
@@ -223,11 +237,11 @@ footer {
     }
 
     .header h1 {
-        font-size: 24px;
+        font-size: 27px;
     }
 
     .container {
-        width: 94%;
+        width: 92%;
     }
 
     .graph-container {
