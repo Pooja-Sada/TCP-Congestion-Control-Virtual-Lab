@@ -1,0 +1,152 @@
+/* CONGESTION AVOIDANCE STYLING */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background: #eef2f7;
+    color: #172033;
+}
+
+#congestion-avoidance {
+    max-width: 1100px;
+    margin: 20px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px #00000015;
+}
+
+h1, h2 {
+    text-align: center;
+    color: #173b70;
+}
+
+#congestion-avoidance > p {
+    text-align: center;
+    color: #64748b;
+}
+
+/* STATISTICS CARDS */
+
+.ca-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin: 30px 0;
+}
+
+.ca-card {
+    padding: 20px 10px;
+    text-align: center;
+    background: #f1f6fc;
+    border-radius: 10px;
+    border: 1px solid #dbe5f0;
+}
+
+.ca-card h3 {
+    font-size: 14px;
+    color: #64748b;
+}
+
+.ca-card p {
+    font-size: 22px;
+    font-weight: bold;
+    color: #1769aa;
+}
+
+/* GRAPH */
+
+.ca-graph {
+    padding: 20px;
+    background: #fafcff;
+    border: 1px solid #dbe5f0;
+    border-radius: 12px;
+    margin: 25px 0;
+}
+
+#ca-graph {
+    width: 100%;
+    height: 350px;
+    display: block;
+}
+
+.blue {
+    color: #2563eb;
+    margin-right: 15px;
+}
+
+.green {
+    color: #16a34a;
+}
+
+/* BUTTONS */
+
+.ca-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin: 25px 0;
+}
+
+.ca-controls button {
+    padding: 12px 28px;
+    border: none;
+    border-radius: 8px;
+    background: #1769aa;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.ca-controls button:hover {
+    background: #104b80;
+}
+
+#ca-status {
+    text-align: center;
+    font-weight: bold;
+    color: #1769aa;
+}
+
+/* RESULTS TABLE */
+
+#congestion-avoidance table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    text-align: center;
+}
+
+#congestion-avoidance th,
+#congestion-avoidance td {
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+#congestion-avoidance th {
+    background: #1769aa;
+    color: white;
+}
+
+/* MOBILE RESPONSIVENESS */
+
+@media (max-width: 700px) {
+    #congestion-avoidance {
+        padding: 15px;
+    }
+
+    .ca-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    #ca-graph {
+        height: 260px;
+    }
+}
