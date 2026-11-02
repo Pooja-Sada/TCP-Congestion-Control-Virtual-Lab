@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TCP Congestion Control - Slow Start</title>
+    <link rel="stylesheet" href="slow-start.css">
+    <script src="slow-start.js" defer></script>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header class="header">
+            <h1>TCP Congestion Control</h1>
+            <p>Slow Start Simulation</p>
+        </header>
+
+        <section class="intro">
+            <h2>Slow Start Phase</h2>
+            <p>
+                Slow Start is a TCP congestion control mechanism.
+                It increases the congestion window exponentially
+                until it reaches the slow start threshold (ssthresh).
+            </p>
+        </section>
+
+        <!-- Simulation Dashboard -->
+        <section class="dashboard">
+
+            <div class="stat-card">
+                <h3>Congestion Window</h3>
+                <div class="stat-value" id="cwnd">1 MSS</div>
+                <p>Current CWND</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Slow Start Threshold</h3>
+                <div class="stat-value" id="ssthresh">16 MSS</div>
+                <p>Threshold value</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Round Trip Time</h3>
+                <div class="stat-value" id="rtt">0</div>
+                <p>RTT count</p>
+            </div>
+
+        </section>
+
+        <!-- Simulation Controls -->
+        <section class="simulation">
+
+            <h2>Simulation Controls</h2>
+
+            <div class="controls">
+                <button id="startBtn">Start</button>
+                <button id="pauseBtn">Pause</button>
+                <button id="resetBtn">Reset</button>
+            </div>
+
+            <div class="status">
+                <h3>Current Phase</h3>
+                <p id="phase">Ready to Start</p>
+            </div>
+
+        </section>
+
+        <!-- Congestion Window Growth -->
+        <section class="graph-section">
+
+            <h2>Congestion Window Growth</h2>
+
+            <p>
+                Observe how CWND doubles after every RTT
+                during the Slow Start phase.
+            </p>
+
+            <div class="graph-container">
+                <canvas id="growthChart"></canvas>
+            </div>
+
+        </section>
+
+        <!-- RTT Information -->
+        <section class="rtt-section">
+
+            <h2>RTT Progress</h2>
+
+            <div id="rttHistory">
+                <p>Simulation has not started yet.</p>
+            </div>
+
+        </section>
+
+        <footer>
+            <p>TCP Congestion Control Virtual Lab | Slow Start</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
