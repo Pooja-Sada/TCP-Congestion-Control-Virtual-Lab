@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TCP Congestion Avoidance</title>
+    <link rel="stylesheet" href="congestion-avoidance.css">
+</head>
+<body>
+
+<section id="congestion-avoidance">
+
+    <h1>TCP Congestion Avoidance</h1>
+
+    <p>Explore how TCP controls network congestion using linear growth.</p>
+
+    <div class="ca-stats">
+        <div class="ca-card">
+            <h3>RTT</h3>
+            <p id="ca-rtt">0</p>
+        </div>
+
+        <div class="ca-card">
+            <h3>Congestion Window</h3>
+            <p id="ca-cwnd">1 MSS</p>
+        </div>
+
+        <div class="ca-card">
+            <h3>Threshold</h3>
+            <p id="ca-threshold">8 MSS</p>
+        </div>
+
+        <div class="ca-card">
+            <h3>Current Phase</h3>
+            <p id="ca-phase">Slow Start</p>
+        </div>
+    </div>
+
+    <div class="ca-graph">
+        <h2>Congestion Window vs RTT</h2>
+        <canvas id="ca-graph" height="350"></canvas>
+
+        <p>
+            <span class="blue">● Slow Start</span>
+            <span class="green">● Congestion Avoidance</span>
+        </p>
+    </div>
+
+    <div class="ca-controls">
+        <button id="ca-start">Start</button>
+        <button id="ca-pause">Pause</button>
+        <button id="ca-reset">Reset</button>
+    </div>
+
+    <p id="ca-status">Press Start to begin simulation.</p>
+
+    <h2>Simulation Results</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>RTT</th>
+                <th>cwnd (MSS)</th>
+                <th>Phase</th>
+            </tr>
+        </thead>
+        <tbody id="ca-table-body"></tbody>
+    </table>
+
+</section>
+
+<script src="congestion-avoidance.js"></script>
+</body>
+</html>
