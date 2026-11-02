@@ -123,8 +123,8 @@ function drawChart() {
 
     // Draw horizontal grid lines and labels
     ctx.font = "11px Arial";
-    ctx.fillStyle = "#64748b";
-    ctx.strokeStyle = "#e2e8f0";
+    ctx.fillStyle = "#91a8c6";
+    ctx.strokeStyle = "#28415e";
     ctx.lineWidth = 1;
 
     for (let i = 0; i <= 4; i++) {
@@ -150,7 +150,7 @@ function drawChart() {
 
     // Draw the congestion window line
     ctx.beginPath();
-    ctx.strokeStyle = "#2563eb";
+    ctx.strokeStyle = "#70b8ff";
     ctx.lineWidth = 3;
 
     points.forEach((point, index) => {
@@ -167,7 +167,7 @@ function drawChart() {
     points.forEach(point => {
         ctx.beginPath();
         ctx.arc(point.x, point.y, 4, 0, Math.PI * 2);
-        ctx.fillStyle = "#2563eb";
+        ctx.fillStyle = "#70b8ff";
         ctx.fill();
     });
 

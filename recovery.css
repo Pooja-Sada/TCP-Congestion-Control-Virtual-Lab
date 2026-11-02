@@ -364,3 +364,471 @@ footer {
     height: 100%;
     display: block;
 }
+
+/* =====================================
+   TEAM DARK BLUE THEME
+   TCP RECOVERY DASHBOARD
+===================================== */
+
+body {
+    background: #071426;
+    color: #e5f3ff;
+}
+
+.header {
+    background: linear-gradient(120deg, #071426, #102b48);
+    border-bottom: 1px solid #1d4568;
+}
+
+.header p {
+    color: #a9c9df;
+}
+
+.protocol {
+    background: #168bcc;
+    color: #ffffff;
+}
+
+.intro h2,
+.graph-card h2,
+.event-card h2,
+.explanation h2 {
+    color: #e5f3ff;
+}
+
+.intro p,
+.graph-card > p {
+    color: #9bb6cc;
+}
+
+/* Dashboard statistic cards */
+
+.stat-card {
+    background: #10243b;
+    border: 1px solid #244564;
+    border-left: 4px solid #168bcc;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.2);
+}
+
+.stat-card span {
+    color: #a9c9df;
+}
+
+.blue h2 {
+    color: #55b9ff;
+}
+
+.green h2 {
+    color: #55d5e8;
+}
+
+.purple h2 {
+    color: #a5a0ff;
+}
+
+/* TCP state */
+
+.state-panel {
+    background: #102b48;
+    border: 1px solid #24577c;
+    border-left: 5px solid #55d5e8;
+}
+
+.state-panel span {
+    color: #55d5e8;
+}
+
+.state-panel h2 {
+    color: #ffffff;
+}
+
+.state-panel p {
+    color: #b4cce0;
+}
+
+/* Simulation cards */
+
+.simulation-card,
+.graph-card,
+.event-card,
+.explanation {
+    background: #10243b;
+    border: 1px solid #244564;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.2);
+}
+
+.simulation-card {
+    border-top: 4px solid #168bcc;
+}
+
+.fast-card {
+    border-top-color: #168bcc;
+}
+
+.timeout-card {
+    border-top-color: #e45d70;
+}
+
+.card-heading h2 {
+    color: #e5f3ff;
+}
+
+.simulation-card > p {
+    color: #a9c9df;
+}
+
+.event-icon {
+    background: #173c60;
+    color: #55d5e8;
+}
+
+.timeout-card .event-icon {
+    background: #482c43;
+    color: #ff8493;
+}
+
+/* ACK and timeout information */
+
+.ack-display,
+.timeout-info,
+.event-log {
+    background: #0a1b2e;
+    border: 1px solid #244564;
+    color: #e5f3ff;
+}
+
+.ack-display span,
+.timeout-info span {
+    color: #a9c9df;
+}
+
+.ack-display strong {
+    color: #55d5e8;
+}
+
+.timeout-info strong {
+    color: #ff8493;
+}
+
+.progress-track {
+    background: #263e57;
+}
+
+.progress-fill {
+    background: linear-gradient(90deg, #168bcc, #55d5e8);
+}
+
+/* Buttons */
+
+.btn-fast {
+    background: #168bcc;
+    color: #ffffff;
+}
+
+.btn-fast:hover:not(:disabled) {
+    background: #27a9e5;
+}
+
+.btn-secondary {
+    background: #244564;
+    color: #e5f3ff;
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background: #315e80;
+}
+
+.btn-timeout {
+    background: #bd425b;
+    color: #ffffff;
+}
+
+.btn-timeout:hover:not(:disabled) {
+    background: #df526b;
+}
+
+/* Graph */
+
+#cwndChart {
+    background: #0a1b2e;
+    border-radius: 8px;
+}
+
+/* Event log */
+
+.log-entry {
+    color: #c8deef;
+    border-bottom: 1px solid #244564;
+}
+
+/* Explanation section */
+
+.explanation-grid div {
+    background: #0a1b2e;
+    border: 1px solid #244564;
+}
+
+.explanation-grid h3 {
+    color: #55d5e8;
+}
+
+.explanation-grid p {
+    color: #a9c9df;
+}
+
+.reset-btn {
+    background: #244564;
+    color: #e5f3ff;
+}
+
+.reset-btn:hover {
+    background: #315e80;
+}
+
+/* Footer */
+
+footer {
+    background: #06101e;
+    color: #a9c9df;
+    border-top: 1px solid #244564;
+}
+
+/* =========================================
+   TCP RECOVERY - TEAM THEORY PAGE THEME
+   Matching teammate's exact colour palette
+========================================= */
+
+/* Main page */
+body {
+    background: #081426;
+    color: #edf4ff;
+    font-family: Arial, sans-serif;
+}
+
+/* Header */
+.header {
+    background: #0d1c32;
+    border-bottom: 1px solid #203550;
+    color: #edf4ff;
+}
+
+.header p {
+    color: #91a8c6;
+}
+
+.protocol {
+    background: #176e91;
+    color: #a9e8ff;
+}
+
+/* Main headings */
+.intro h2,
+.graph-card h2,
+.event-card h2,
+.explanation h2 {
+    color: #edf4ff;
+}
+
+.intro p,
+.graph-card > p {
+    color: #b9cbe0;
+}
+
+/* Statistics cards */
+.stat-card {
+    background: #11243c;
+    border: 1px solid #28415e;
+    border-left: 4px solid #70b8ff;
+    box-shadow: none;
+}
+
+.stat-card span {
+    color: #91a8c6;
+}
+
+.blue h2 {
+    color: #70b8ff;
+}
+
+.green h2 {
+    color: #70b8ff;
+}
+
+.purple h2 {
+    color: #70b8ff;
+}
+
+/* TCP state */
+.state-panel {
+    background: #11243c;
+    border: 1px solid #28415e;
+    border-left: 5px solid #70b8ff;
+}
+
+.state-panel span {
+    color: #70b8ff;
+}
+
+.state-panel h2 {
+    color: #edf4ff;
+}
+
+.state-panel p {
+    color: #b9cbe0;
+}
+
+/* Simulation cards */
+.simulation-card,
+.graph-card,
+.event-card,
+.explanation {
+    background: #11243c;
+    border: 1px solid #28415e;
+    box-shadow: none;
+}
+
+.fast-card {
+    border-top: 4px solid #70b8ff;
+}
+
+.timeout-card {
+    border-top: 4px solid #70b8ff;
+}
+
+.card-heading h2 {
+    color: #edf4ff;
+}
+
+.simulation-card > p {
+    color: #b9cbe0;
+}
+
+/* Event icons */
+.event-icon {
+    background: #172f4c;
+    color: #70b8ff;
+}
+
+.timeout-card .event-icon {
+    background: #172f4c;
+    color: #70b8ff;
+}
+
+/* ACK and timeout information */
+.ack-display,
+.timeout-info {
+    background: #0d1c32;
+    border: 1px solid #28415e;
+    color: #d8e5f5;
+}
+
+.ack-display span,
+.timeout-info span {
+    color: #91a8c6;
+}
+
+.ack-display strong,
+.timeout-info strong {
+    color: #70b8ff;
+}
+
+/* Progress bar */
+.progress-track {
+    background: #203550;
+}
+
+.progress-fill {
+    background: #70b8ff;
+}
+
+/* Buttons */
+.btn-fast {
+    background: #176e91;
+    color: #ffffff;
+}
+
+.btn-fast:hover:not(:disabled) {
+    background: #2389ad;
+}
+
+.btn-secondary {
+    background: #172f4c;
+    color: #edf4ff;
+    border: 1px solid #385777;
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background: #234c76;
+}
+
+.btn-timeout {
+    background: #176e91;
+    color: #ffffff;
+}
+
+.btn-timeout:hover:not(:disabled) {
+    background: #2389ad;
+}
+
+.btn:disabled {
+    opacity: 0.45;
+}
+
+/* Graph background */
+#cwndChart {
+    background: #0d1c32;
+    border: 1px solid #28415e;
+    border-radius: 12px;
+}
+
+/* Event log */
+.event-log {
+    background: #0d1c32;
+    border: 1px solid #28415e;
+}
+
+.log-entry {
+    color: #d8e5f5;
+    border-bottom: 1px solid #203550;
+}
+
+/* Reset button */
+.reset-btn {
+    background: #172f4c;
+    border: 1px solid #385777;
+    color: #edf4ff;
+}
+
+.reset-btn:hover {
+    background: #234c76;
+}
+
+/* Explanation section */
+.explanation-grid div {
+    background: #0d1c32;
+    border: 1px solid #28415e;
+}
+
+.explanation-grid h3 {
+    color: #70b8ff;
+}
+
+.explanation-grid p {
+    color: #b9cbe0;
+}
+
+/* Footer */
+footer {
+    background: #0d1c32;
+    border-top: 1px solid #28415e;
+    color: #91a8c6;
+}
+
+/* Responsive layout remains unchanged */
+@media (max-width: 700px) {
+    .simulation-grid,
+    .stats,
+    .explanation-grid {
+        grid-template-columns: 1fr;
+    }
+}
