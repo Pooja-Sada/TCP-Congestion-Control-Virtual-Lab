@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TCP Fast Recovery & Timeout Simulator</title>
+    <link rel="stylesheet" href="recovery.css">
+</head>
+<body>
+
+    <header class="header">
+        <div>
+            <h1>TCP Congestion Control</h1>
+            <p>Fast Recovery & Timeout Simulation</p>
+        </div>
+        <span class="protocol">TCP RENO</span>
+    </header>
+
+    <main class="container">
+
+        <section class="intro">
+            <h2>Recovery Dashboard</h2>
+            <p>Explore how TCP responds to packet loss using Fast Recovery and Timeout mechanisms.</p>
+        </section>
+
+        <section class="stats">
+            <div class="stat-card blue">
+                <span>Congestion Window (cwnd)</span>
+                <h2 id="cwnd">16 MSS</h2>
+            </div>
+
+            <div class="stat-card green">
+                <span>Slow Start Threshold (ssthresh)</span>
+                <h2 id="ssthresh">16 MSS</h2>
+            </div>
+
+            <div class="stat-card purple">
+                <span>Duplicate ACKs</span>
+                <h2 id="duplicateAcks">0 / 3</h2>
+            </div>
+        </section>
+
+        <section class="state-panel">
+            <span>Current TCP State</span>
+            <h2 id="tcpState">Congestion Avoidance</h2>
+            <p id="stateDescription">TCP is increasing its congestion window gradually.</p>
+        </section>
+
+        <section class="simulation-grid">
+
+            <div class="simulation-card fast-card">
+                <div class="card-heading">
+                    <span class="event-icon">↻</span>
+                    <h2>Fast Recovery</h2>
+                </div>
+                <p>Simulate three duplicate ACKs to trigger Fast Retransmit and Fast Recovery.</p>
+
+                <div class="ack-display">
+                    <span>Duplicate ACKs received</span>
+                    <strong id="ackCount">0 / 3</strong>
+                </div>
+
+                <div class="progress-track">
+                    <div id="ackProgress" class="progress-fill"></div>
+                </div>
+
+                <button id="duplicateBtn" class="btn btn-fast">
+                    Simulate Duplicate ACK
+                </button>
+
+                <button id="newAckBtn" class="btn btn-secondary" disabled>
+                    Receive New ACK
+                </button>
+            </div>
+
+            <div class="simulation-card timeout-card">
+                <div class="card-heading">
+                    <span class="event-icon">!</span>
+                    <h2>Timeout Simulation</h2>
+                </div>
+                <p>Simulate a retransmission timeout caused by packet loss.</p>
+
+                <div class="timeout-info">
+                    <span>Timeout effect</span>
+                    <strong>cwnd → 1 MSS</strong>
+                    <strong>ssthresh → Half cwnd</strong>
+                </div>
+
+                <button id="timeoutBtn" class="btn btn-timeout">
+                    Simulate Timeout
+                </button>
+            </div>
+
+        </section>
+
+        <section class="graph-card">
+            <h2>Congestion Window History</h2>
+            <p>Observe how the congestion window changes during recovery.</p>
+            <div class="chart-container">
+                <canvas id="cwndChart"></canvas>
+            </div>
+        </section>
+
+        <section class="event-card">
+            <div class="event-header">
+                <h2>Simulation Event Log</h2>
+                <button id="resetBtn" class="reset-btn">Reset Simulation</button>
+            </div>
+            <div id="eventLog" class="event-log">
+                <p class="log-entry">Simulation initialized. TCP is in Congestion Avoidance.</p>
+            </div>
+        </section>
+
+        <section class="explanation">
+            <h2>How TCP Recovery Works</h2>
+
+            <div class="explanation-grid">
+                <div>
+                    <h3>Fast Recovery</h3>
+                    <p>After receiving three duplicate ACKs, TCP performs Fast Retransmit, sets ssthresh to half the previous congestion window, and temporarily inflates cwnd by 3 MSS. When a new ACK arrives, cwnd returns to ssthresh and TCP enters Congestion Avoidance.</p>
+                </div>
+
+                <div>
+                    <h3>Timeout</h3>
+                    <p>When a retransmission timeout occurs, TCP reduces ssthresh to half the previous congestion window, resets cwnd to 1 MSS, and returns to Slow Start.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>TCP Congestion Control Virtual Lab | Fast Recovery & Timeout Module</p>
+    </footer>
+
+    <script src="recovery.js"></script>
+</body>
+</html>
