@@ -229,3 +229,96 @@ state.message = "Ready. Start the simulation to transmit packets.";
 setupChart();
 updateUI();
 renderQuestion();
+
+
+
+// Interactive TCP terminology and phase cards
+
+const termInformation = {
+  cwnd: {
+    title: "Congestion Window (CWND)",
+    description: "CWND controls the amount of unacknowledged data that a sender can transmit into the network. TCP adjusts this window according to network conditions."
+  },
+
+  ssthresh: {
+    title: "Slow Start Threshold (SSThresh)",
+    description: "SSThresh determines the transition point between Slow Start and Congestion Avoidance."
+  },
+
+  rtt: {
+    title: "Round Trip Time (RTT)",
+    description: "RTT is the time taken for a packet to reach the receiver and for its acknowledgement to return to the sender."
+  },
+
+  ack: {
+    title: "Acknowledgement (ACK)",
+    description: "An ACK is a response sent by the receiver to confirm that data has been received successfully."
+  }
+};
+
+const phaseInformation = {
+  slowstart: {
+    title: "Slow Start",
+    description: "TCP begins with a small congestion window. It increases CWND exponentially, approximately doubling every RTT in this simplified model. This continues until the threshold is reached or congestion is detected."
+  },
+
+  congestionavoidance: {
+    title: "Congestion Avoidance",
+    description: "When CWND reaches SSThresh, TCP enters Congestion Avoidance. The congestion window increases gradually, approximately by one MSS per RTT."
+  },
+
+  fastretransmit: {
+    title: "Fast Retransmit",
+    description: "When the sender receives three duplicate ACKs, it assumes that a segment may have been lost. TCP retransmits the missing segment without waiting for a timeout."
+  },
+
+  fastrecovery: {
+    title: "Fast Recovery",
+    description: "In TCP Reno, Fast Recovery follows Fast Retransmit. TCP reduces its congestion window and continues transmission without restarting from the initial Slow Start state."
+  },
+
+  timeout: {
+    title: "Retransmission Timeout",
+    description: "A retransmission timeout indicates that an acknowledgement has not arrived within the expected time. TCP treats this as a serious congestion signal, reduces its congestion window to 1 MSS in this teaching model, and restarts Slow Start."
+  }
+};
+
+// Parameter cards
+document.querySelectorAll(".term-card").forEach(card => {
+  card.addEventListener("click", () => {
+    const info = termInformation[card.dataset.term];
+    if (!info) return;
+
+    document.getElementById("termExplanation").innerHTML = `
+      <span class="tag">PARAMETER EXPLANATION</span>
+      <h2>${info.title}</h2>
+      <p>${info.description}</p>
+    `;
+
+    document.querySelectorAll(".term-card").forEach(item => {
+      item.classList.remove("selected");
+    });
+
+    card.classList.add("selected");
+  });
+});
+
+// TCP phase cards
+document.querySelectorAll(".phase-card").forEach(card => {
+  card.addEventListener("click", () => {
+    const info = phaseInformation[card.dataset.term];
+    if (!info) return;
+
+    document.getElementById("phaseExplanation").innerHTML = `
+      <span class="tag">PHASE EXPLANATION</span>
+      <h2>${info.title}</h2>
+      <p>${info.description}</p>
+    `;
+
+    document.querySelectorAll(".phase-card").forEach(item => {
+      item.classList.remove("selected");
+    });
+
+    card.classList.add("selected");
+  });
+});

@@ -1,0 +1,206 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TCP Fundamentals | Virtual Lab</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="theory.css">
+</head>
+<body>
+
+    <header class="theory-header">
+        <a href="index.html" class="back-link">← Back to Virtual Lab</a>
+        <span class="header-label">DATA COMMUNICATION NETWORKS</span>
+    </header>
+
+    <main class="theory-container">
+
+        <section class="hero">
+            <span class="tag">TRANSPORT LAYER</span>
+            <h1>TCP Fundamentals</h1>
+            <p>
+                Understand how Transmission Control Protocol manages
+                reliable communication and controls network congestion.
+            </p>
+        </section>
+
+        <section class="content-section">
+            <h2>01. What is TCP?</h2>
+            <div class="info-card">
+                <p>
+                    <strong>Transmission Control Protocol (TCP)</strong>
+                    is a connection-oriented transport layer protocol
+                    that provides reliable data transmission between
+                    devices over a network.
+                </p>
+                <p>
+                    It ensures that data reaches the destination in the
+                    correct order, detects transmission errors and
+                    retransmits lost data when necessary.
+                </p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2>02. What is Congestion Control?</h2>
+            <div class="info-card">
+                <p>
+                    TCP Congestion Control is a mechanism used to
+                    regulate the amount of data transmitted into a
+                    network.
+                </p>
+                <p>
+                    When too much data enters a network, congestion
+                    can occur, causing packet loss and increased delay.
+                    TCP adjusts its transmission rate to reduce
+                    congestion and maintain efficient communication.
+                </p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2>03. Why is Congestion Control Needed?</h2>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <span>📦</span>
+                    <h3>Reduce Packet Loss</h3>
+                    <p>Helps prevent excessive packets from being lost during transmission.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span>⚡</span>
+                    <h3>Improve Efficiency</h3>
+                    <p>Uses available network capacity more effectively.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span>🔄</span>
+                    <h3>Reliable Delivery</h3>
+                    <p>Works with TCP reliability mechanisms to support successful delivery.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span>🌐</span>
+                    <h3>Network Stability</h3>
+                    <p>Helps avoid overwhelming network resources.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2>04. Important TCP Terminologies</h2>
+            <p class="section-description">
+                Select each term to understand its role in congestion control.
+            </p>
+
+            <div class="term-grid">
+
+                <button class="term-card" data-term="cwnd">
+                    <strong>cwnd</strong>
+                    <span>Congestion Window</span>
+                    <small>Click to explore →</small>
+                </button>
+
+                <button class="term-card" data-term="ssthresh">
+                    <strong>ssthresh</strong>
+                    <span>Slow Start Threshold</span>
+                    <small>Click to explore →</small>
+                </button>
+
+                <button class="term-card" data-term="rtt">
+                    <strong>RTT</strong>
+                    <span>Round Trip Time</span>
+                    <small>Click to explore →</small>
+                </button>
+
+                <button class="term-card" data-term="ack">
+                    <strong>ACK</strong>
+                    <span>Acknowledgement</span>
+                    <small>Click to explore →</small>
+                </button>
+
+            </div>
+
+            <div class="term-explanation" id="termExplanation" aria-live="polite">
+                <h3>Select a terminology card</h3>
+                <p>The explanation will appear here.</p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2>05. Four Phases of TCP Congestion Control</h2>
+
+            <div class="phase-list">
+
+                <details class="phase-card">
+                    <summary>01 — Slow Start</summary>
+                    <p>
+                        In Slow Start, the congestion window grows
+                        exponentially as acknowledgements are received.
+                        This continues until the congestion window reaches
+                        the slow start threshold or congestion is detected.
+                    </p>
+                </details>
+
+                <details class="phase-card">
+                    <summary>02 — Congestion Avoidance</summary>
+                    <p>
+                        In Congestion Avoidance, the congestion window
+                        increases approximately linearly. This provides
+                        a more controlled increase in the transmission rate.
+                    </p>
+                </details>
+
+                <details class="phase-card">
+                    <summary>03 — Fast Retransmit</summary>
+                    <p>
+                        When the sender receives three duplicate ACKs,
+                        it assumes that a segment may have been lost and
+                        retransmits the missing segment without waiting
+                        for a timeout.
+                    </p>
+                </details>
+
+                <details class="phase-card">
+                    <summary>04 — Fast Recovery</summary>
+                    <p>
+                        In TCP Reno, Fast Recovery adjusts the congestion
+                        window after three duplicate ACKs and allows
+                        transmission to continue without restarting
+                        the entire congestion control process.
+                    </p>
+                </details>
+
+            </div>
+        </section>
+
+        <section class="content-section knowledge-section">
+            <h2>06. Test Your Knowledge</h2>
+            <p>Which TCP mechanism controls the amount of unacknowledged data that can be in transit?</p>
+
+            <div class="quiz-options">
+                <button class="quiz-option" data-answer="wrong">Round Trip Time</button>
+                <button class="quiz-option" data-answer="correct">Congestion Window</button>
+                <button class="quiz-option" data-answer="wrong">Acknowledgement</button>
+                <button class="quiz-option" data-answer="wrong">Packet Header</button>
+            </div>
+
+            <p id="quizFeedback" class="quiz-feedback" aria-live="polite">
+                Choose an answer to check your understanding.
+            </p>
+        </section>
+
+        <footer class="theory-footer">
+            <p>TCP Congestion Control Virtual Lab</p>
+            <a href="index.html">Return to Home →</a>
+        </footer>
+
+    </main>
+
+    <script src="theory.js"></script>
+</body>
+</html>

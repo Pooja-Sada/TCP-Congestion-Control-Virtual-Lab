@@ -1,0 +1,288 @@
+
+/* TCP THEORY PAGE */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #081426;
+    color: #edf4ff;
+    font-family: Arial, sans-serif;
+}
+
+.theory-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 7%;
+    border-bottom: 1px solid #203550;
+    background: #0d1c32;
+}
+
+.back-link {
+    color: #70b8ff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.header-label {
+    color: #91a8c6;
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+.theory-container {
+    width: 86%;
+    max-width: 1100px;
+    margin: 40px auto;
+}
+
+.hero {
+    padding: 55px 35px;
+    text-align: center;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #123b70, #176e91);
+    margin-bottom: 45px;
+}
+
+.tag {
+    color: #a9e8ff;
+    font-size: 12px;
+    letter-spacing: 3px;
+    font-weight: bold;
+}
+
+.hero h1 {
+    font-size: 42px;
+    margin: 18px 0;
+}
+
+.hero p {
+    color: #d6eaff;
+    line-height: 1.7;
+    max-width: 650px;
+    margin: auto;
+}
+
+.content-section {
+    margin: 42px 0;
+}
+
+.content-section h2 {
+    color: #70b8ff;
+    margin-bottom: 20px;
+    font-size: 25px;
+}
+
+.info-card,
+.term-explanation {
+    background: #11243c;
+    border: 1px solid #28415e;
+    border-radius: 12px;
+    padding: 25px;
+    line-height: 1.8;
+    color: #d8e5f5;
+}
+
+.info-card p {
+    margin: 8px 0 15px;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.feature-card {
+    background: #11243c;
+    border: 1px solid #28415e;
+    padding: 23px;
+    border-radius: 12px;
+    transition: 0.25s;
+}
+
+.feature-card:hover,
+.term-card:hover {
+    transform: translateY(-4px);
+    border-color: #70b8ff;
+}
+
+.feature-card span {
+    font-size: 28px;
+}
+
+.feature-card h3 {
+    color: #ffffff;
+}
+
+.feature-card p,
+.phase-card p {
+    color: #b9cbe0;
+    line-height: 1.7;
+}
+
+.section-description {
+    color: #b9cbe0;
+    margin-bottom: 20px;
+}
+
+.term-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+}
+
+.term-card {
+    background: #11243c;
+    color: white;
+    border: 1px solid #28415e;
+    border-radius: 12px;
+    padding: 22px 12px;
+    cursor: pointer;
+    text-align: center;
+    transition: 0.25s;
+}
+
+.term-card strong {
+    display: block;
+    font-size: 26px;
+    color: #70b8ff;
+    margin-bottom: 10px;
+}
+
+.term-card span,
+.term-card small {
+    display: block;
+    margin: 7px 0;
+}
+
+.term-card small {
+    color: #91a8c6;
+}
+
+.term-explanation {
+    margin-top: 18px;
+    min-height: 110px;
+}
+
+.term-explanation h3 {
+    color: #70b8ff;
+}
+
+.phase-list {
+    display: grid;
+    gap: 14px;
+}
+
+.phase-card {
+    background: #11243c;
+    border: 1px solid #28415e;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.phase-card summary {
+    color: #70b8ff;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.phase-card p {
+    margin-bottom: 0;
+}
+
+.knowledge-section {
+    background: #0e2038;
+    padding: 28px;
+    border-radius: 15px;
+    border: 1px solid #28415e;
+}
+
+.knowledge-section > p {
+    line-height: 1.7;
+}
+
+.quiz-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.quiz-option {
+    padding: 15px;
+    background: #172f4c;
+    border: 1px solid #385777;
+    color: white;
+    border-radius: 9px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.quiz-option:hover {
+    background: #234c76;
+}
+
+.quiz-option.correct-choice {
+    background: #155b43;
+    border-color: #37c58a;
+}
+
+.quiz-option.wrong-choice {
+    background: #632c35;
+    border-color: #ff6877;
+}
+
+.quiz-feedback {
+    font-weight: bold;
+    color: #9bcfff;
+    margin-top: 18px;
+}
+
+.theory-footer {
+    border-top: 1px solid #28415e;
+    padding: 25px 0;
+    margin-top: 45px;
+    display: flex;
+    justify-content: space-between;
+    color: #91a8c6;
+}
+
+.theory-footer a {
+    color: #70b8ff;
+    text-decoration: none;
+}
+
+@media (max-width: 700px) {
+    .theory-container {
+        width: 92%;
+    }
+
+    .hero h1 {
+        font-size: 30px;
+    }
+
+    .feature-grid,
+    .term-grid,
+    .quiz-options {
+        grid-template-columns: 1fr;
+    }
+
+    .theory-header {
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .header-label {
+        font-size: 10px;
+    }
+
+    .theory-footer {
+        gap: 12px;
+        flex-direction: column;
+    }
+}
