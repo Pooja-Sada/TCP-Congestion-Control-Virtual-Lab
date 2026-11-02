@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TCP Fast Retransmit Virtual Lab</title>
+
+    <link rel="stylesheet" href="fast-retransmit.css">
+    <script src="fast-retransmit.js" defer></script>
+</head>
+
+<body>
+
+    <!-- MAIN CONTAINER -->
+    <div class="container">
+
+        <!-- HEADER -->
+        <header class="header">
+            <h1>TCP Fast Retransmit</h1>
+            <p>Packet Loss and Recovery Simulation</p>
+            <span class="layer-tag">TRANSPORT LAYER | TCP RENO</span>
+        </header>
+
+
+        <!-- INTRODUCTION -->
+        <section class="intro">
+            <h2>About Fast Retransmit</h2>
+
+            <p>
+                Fast Retransmit is a TCP congestion control mechanism
+                that retransmits a lost packet immediately after
+                receiving three duplicate acknowledgements (ACKs),
+                without waiting for a timeout.
+            </p>
+        </section>
+
+
+        <!-- SIMULATION CONTROLS -->
+        <section class="simulation">
+
+            <h2>Packet Loss Simulation</h2>
+
+            <div class="controls">
+
+                <div class="input-group">
+                    <label for="initialCwnd">
+                        Initial Congestion Window (cwnd)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="initialCwnd"
+                        value="8"
+                        min="4"
+                        max="20">
+                </div>
+
+
+                <div class="input-group">
+                    <label for="initialSsthresh">
+                        Initial Slow Start Threshold
+                    </label>
+
+                    <input
+                        type="number"
+                        id="initialSsthresh"
+                        value="16"
+                        min="2"
+                        max="100">
+                </div>
+
+
+                <div class="input-group">
+                    <label for="lostPacket">
+                        Packet to Lose
+                    </label>
+
+                    <select id="lostPacket">
+                        <option value="2">Packet 2</option>
+                        <option value="3">Packet 3</option>
+                        <option value="4">Packet 4</option>
+                        <option value="5">Packet 5</option>
+                    </select>
+                </div>
+
+            </div>
+
+
+            <!-- BUTTONS -->
+            <div class="buttons">
+
+                <button id="startSimulation">
+                    Start Simulation
+                </button>
+
+                <button id="simulateLoss">
+                    Simulate Packet Loss
+                </button>
+
+                <button id="resetSimulation">
+                    Reset
+                </button>
+
+            </div>
+
+            <p id="simulationStatus" aria-live="polite">
+                Ready to start the simulation.
+            </p>
+
+        </section>
+
+
+        <!-- PACKET TRANSMISSION -->
+        <section class="packet-section">
+
+            <h2>Packet Transmission</h2>
+
+            <p>
+                Observe how packets travel from the sender
+                to the receiver.
+            </p>
+
+            <div class="network">
+
+                <div class="network-node">
+                    <span>💻</span>
+                    <h3>Sender</h3>
+                </div>
+
+                <div class="packet-area">
+
+                    <div id="packetContainer"
+                         class="packet-container"
+                         aria-live="polite">
+
+                        <p>Packets will appear here when the simulation starts.</p>
+
+                    </div>
+
+                </div>
+
+                <div class="network-node">
+                    <span>💻</span>
+                    <h3>Receiver</h3>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ACK INFORMATION -->
+        <section class="ack-section">
+
+            <h2>Acknowledgement (ACK) Information</h2>
+
+            <p>
+                The receiver sends acknowledgements to inform
+                the sender about successfully received packets.
+            </p>
+
+            <div class="ack-display">
+
+                <div class="ack-counter">
+                    <h3>Duplicate ACKs Received</h3>
+
+                    <span id="duplicateAckCount">0</span>
+
+                    <p>Out of 3 required ACKs</p>
+                </div>
+
+
+                <div class="ack-list">
+
+                    <h3>ACK Events</h3>
+
+                    <div id="ackContainer"
+                         aria-live="polite">
+
+                        <p>No duplicate ACKs received yet.</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- FAST RETRANSMIT -->
+        <section class="retransmit-section">
+
+            <h2>Fast Retransmit Event</h2>
+
+            <div id="retransmitStatus"
+                 aria-live="polite">
+
+                <p>
+                    Waiting for three duplicate ACKs...
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- CONGESTION WINDOW -->
+        <section class="congestion-section">
+
+            <h2>TCP Reno Congestion Window</h2>
+
+            <div class="metrics">
+
+                <div class="metric-card">
+                    <h3>Congestion Window</h3>
+                    <span id="cwndValue">8</span>
+                </div>
+
+                <div class="metric-card">
+                    <h3>Slow Start Threshold</h3>
+                    <span id="ssthreshValue">16</span>
+                </div>
+
+                <div class="metric-card">
+                    <h3>Current TCP Phase</h3>
+                    <span id="tcpPhase">Slow Start</span>
+                </div>
+
+            </div>
+
+            <div class="chart-container">
+
+                <h3>Congestion Window vs Transmission Round</h3>
+
+                <canvas
+                    id="congestionChart"
+                    aria-label="Graph of congestion window against transmission round">
+                </canvas>
+
+            </div>
+
+        </section>
+
+
+        <!-- EVENT LOG -->
+        <section class="log-section">
+
+            <h2>Simulation Event Log</h2>
+
+            <div id="eventLog"
+                 aria-live="polite">
+
+                <p>Simulation events will appear here.</p>
+
+            </div>
+
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer class="footer">
+
+            <p>
+                TCP Congestion Control Virtual Lab
+            </p>
+
+            <p>
+                Packet Loss and Fast Retransmit Demonstration
+            </p>
+
+        </footer>
+
+    </div>
+
+</body>
+
+</html>

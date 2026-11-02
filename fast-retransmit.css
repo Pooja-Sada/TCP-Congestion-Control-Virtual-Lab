@@ -1,0 +1,356 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f1f5f9;
+    color: #1e293b;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 25px;
+}
+
+.header {
+    background: #172554;
+    color: white;
+    text-align: center;
+    padding: 35px 20px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+}
+
+.header h1 {
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.header p {
+    color: #cbd5e1;
+}
+
+.layer-tag {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 6px 14px;
+    background: #1e40af;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+section {
+    background: white;
+    padding: 25px;
+    margin-bottom: 22px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+section h2 {
+    color: #1e3a8a;
+    margin-bottom: 18px;
+    font-size: 22px;
+}
+
+.intro p,
+.packet-section p,
+.ack-section p {
+    color: #475569;
+}
+
+.controls {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-bottom: 22px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-group label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.input-group input,
+.input-group select {
+    padding: 11px;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    font-size: 15px;
+    background: white;
+}
+
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.buttons button {
+    padding: 12px 22px;
+    border: none;
+    border-radius: 7px;
+    background: #1d4ed8;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.buttons button:hover {
+    background: #1e40af;
+}
+
+#simulateLoss {
+    background: #dc6b36;
+}
+
+#simulateLoss:hover {
+    background: #c45124;
+}
+
+#resetSimulation {
+    background: #64748b;
+}
+
+#resetSimulation:hover {
+    background: #475569;
+}
+
+#simulationStatus {
+    margin-top: 18px;
+    padding: 12px;
+    background: #eff6ff;
+    border-radius: 7px;
+    color: #1e40af;
+    font-weight: bold;
+}
+
+.network {
+    display: grid;
+    grid-template-columns: 130px 1fr 130px;
+    align-items: center;
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.network-node {
+    text-align: center;
+    background: #eff6ff;
+    padding: 20px 10px;
+    border-radius: 10px;
+}
+
+.network-node span {
+    font-size: 35px;
+}
+
+.network-node h3 {
+    margin-top: 8px;
+    color: #1e3a8a;
+}
+
+.packet-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    min-height: 100px;
+    align-items: center;
+    padding: 15px;
+    background: #f8fafc;
+    border: 1px dashed #94a3b8;
+    border-radius: 10px;
+}
+
+.packet {
+    width: 65px;
+    height: 65px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 9px;
+    background: #dcfce7;
+    border: 2px solid #16a34a;
+    color: #166534;
+    font-weight: bold;
+}
+
+.packet.lost {
+    background: #fee2e2;
+    border: 2px solid #dc2626;
+    color: #b91c1c;
+}
+
+.packet.retransmitted {
+    background: #dbeafe;
+    border: 2px solid #2563eb;
+    color: #1e40af;
+}
+
+.packet.received {
+    background: #dcfce7;
+    border-color: #16a34a;
+}
+
+.ack-display {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+}
+
+.ack-counter {
+    text-align: center;
+    background: #fff7ed;
+    padding: 25px;
+    border-radius: 10px;
+}
+
+.ack-counter h3 {
+    font-size: 16px;
+    color: #9a3412;
+}
+
+.ack-counter span {
+    display: block;
+    font-size: 45px;
+    font-weight: bold;
+    color: #ea580c;
+    margin: 10px;
+}
+
+.ack-list {
+    background: #f8fafc;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.ack-list h3 {
+    margin-bottom: 12px;
+}
+
+.ack-event {
+    padding: 10px 14px;
+    margin-bottom: 9px;
+    background: #fef3c7;
+    border-left: 4px solid #f59e0b;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.retransmit-section {
+    border-left: 5px solid #2563eb;
+}
+
+.retransmit-event {
+    background: #dbeafe;
+    color: #1e40af;
+    padding: 18px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.metric-card {
+    background: #eff6ff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.metric-card h3 {
+    font-size: 14px;
+    color: #475569;
+}
+
+.metric-card span {
+    display: block;
+    font-size: 28px;
+    font-weight: bold;
+    color: #1d4ed8;
+    margin-top: 8px;
+}
+
+.chart-container {
+    position: relative;
+    height: 350px;
+    width: 100%;
+}
+
+.chart-container h3 {
+    margin-bottom: 15px;
+    color: #334155;
+}
+
+#eventLog {
+    background: #f8fafc;
+    padding: 18px;
+    border-radius: 8px;
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.log-entry {
+    padding: 9px;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 14px;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: #64748b;
+    font-size: 13px;
+}
+
+@media (max-width: 700px) {
+    .container {
+        padding: 12px;
+    }
+
+    .controls,
+    .metrics,
+    .ack-display {
+        grid-template-columns: 1fr;
+    }
+
+    .network {
+        grid-template-columns: 1fr;
+    }
+
+    .header h1 {
+        font-size: 25px;
+    }
+
+    .buttons button {
+        width: 100%;
+    }
+
+    .chart-container {
+        height: 280px;
+    }
+}
+
+.chart-container canvas {
+    width: 100%;
+    height: calc(100% - 35px);
+    display: block;
+}
