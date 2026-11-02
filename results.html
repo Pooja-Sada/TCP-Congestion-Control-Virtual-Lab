@@ -1,0 +1,75 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TCP Simulation Results</title>
+    <link rel="stylesheet" href="results.css">
+</head>
+<body>
+
+    <div class="results-container">
+
+        <header>
+            <h1>TCP Congestion Control</h1>
+            <p>Simulation Results and Performance Analysis</p>
+        </header>
+
+        <section class="results-section">
+            <h2>Simulation Results</h2>
+
+            <div class="stats-container">
+                <div class="stat-card">
+                    <h3>Total RTT</h3>
+                    <p id="totalRTT">0</p>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Maximum CWND</h3>
+                    <p id="maxCWND">0</p>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Threshold</h3>
+                    <p id="threshold">0</p>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Packet Loss</h3>
+                    <p id="packetLoss">0</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="graph-section">
+            <h2>Congestion Window vs RTT</h2>
+            <div class="graph-container">
+                <canvas id="cwndChart"></canvas>
+            </div>
+        </section>
+
+        <section class="quiz-section">
+            <h2>Knowledge Quiz</h2>
+            <p id="questionNumber"></p>
+            <h3 id="question"></h3>
+
+            <div id="options"></div>
+
+            <p id="feedback"></p>
+
+            <button id="nextButton" onclick="nextQuestion()">
+                Next Question
+            </button>
+
+            <h3 id="score"></h3>
+        </section>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="results.js"></script>
+
+</body>
+</html>

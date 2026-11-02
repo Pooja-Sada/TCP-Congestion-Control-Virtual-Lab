@@ -1,0 +1,138 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #eef2f7;
+    color: #222;
+}
+
+.results-container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 30px auto;
+}
+
+header {
+    text-align: center;
+    background: #172554;
+    color: white;
+    padding: 30px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+}
+
+header h1 {
+    margin-bottom: 10px;
+}
+
+section {
+    background: white;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+}
+
+h2 {
+    color: #172554;
+    margin-bottom: 20px;
+}
+
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.stat-card {
+    background: #e0e7ff;
+    padding: 22px 10px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.stat-card h3 {
+    font-size: 15px;
+    margin-bottom: 12px;
+}
+
+.stat-card p {
+    font-size: 26px;
+    font-weight: bold;
+    color: #1d4ed8;
+}
+
+.graph-container {
+    height: 350px;
+    position: relative;
+}
+
+#options {
+    display: grid;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.option {
+    padding: 13px;
+    border: 2px solid #cbd5e1;
+    background: white;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: left;
+    font-size: 15px;
+}
+
+.option:hover:not(:disabled) {
+    background: #e0e7ff;
+}
+
+.correct {
+    background: #bbf7d0 !important;
+    border-color: #16a34a;
+}
+
+.incorrect {
+    background: #fecaca !important;
+    border-color: #dc2626;
+}
+
+button {
+    padding: 12px 22px;
+    background: #1d4ed8;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#feedback {
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+#score {
+    margin-top: 20px;
+    color: #172554;
+}
+
+@media (max-width: 700px) {
+    .stats-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .results-container {
+        width: 95%;
+    }
+}
