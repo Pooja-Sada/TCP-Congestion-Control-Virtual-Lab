@@ -1,74 +1,274 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TCP Congestion Avoidance</title>
-    <link rel="stylesheet" href="congestion-avoidance.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TCP Congestion Avoidance | Virtual Lab</title>
+  <link rel="stylesheet" href="congestion-avoidance.css">
 </head>
+
 <body>
+  <main class="lab-shell" id="congestion-avoidance">
 
-<section id="congestion-avoidance">
-
-    <h1>TCP Congestion Avoidance</h1>
-
-    <p>Explore how TCP controls network congestion using linear growth.</p>
-
-    <div class="ca-stats">
-        <div class="ca-card">
-            <h3>RTT</h3>
-            <p id="ca-rtt">0</p>
+    <header class="hero">
+      <div>
+        <div class="eyebrow">
+          <span class="pulse-dot"></span>
+          DATA COMMUNICATION NETWORKS · VIRTUAL LAB
         </div>
-
-        <div class="ca-card">
-            <h3>Congestion Window</h3>
-            <p id="ca-cwnd">1 MSS</p>
-        </div>
-
-        <div class="ca-card">
-            <h3>Threshold</h3>
-            <p id="ca-threshold">8 MSS</p>
-        </div>
-
-        <div class="ca-card">
-            <h3>Current Phase</h3>
-            <p id="ca-phase">Slow Start</p>
-        </div>
-    </div>
-
-    <div class="ca-graph">
-        <h2>Congestion Window vs RTT</h2>
-        <canvas id="ca-graph" height="350"></canvas>
-
-        <p>
-            <span class="blue">● Slow Start</span>
-            <span class="green">● Congestion Avoidance</span>
+        <h1>TCP <span>Congestion Control</span></h1>
+        <p class="hero-copy">
+          Explore how the congestion window evolves across RTTs as TCP
+          detects network capacity and responds to congestion.
         </p>
-    </div>
+      </div>
+      <div class="protocol-chip">
+        <span class="chip-dot"></span> TCP RENO MODEL
+      </div>
+    </header>
 
-    <div class="ca-controls">
-        <button id="ca-start">Start</button>
-        <button id="ca-pause">Pause</button>
-        <button id="ca-reset">Reset</button>
-    </div>
+    <!-- LIVE METRICS -->
+    <section class="metric-grid">
+      <article class="metric-card">
+        <div class="metric-label">ROUND TRIP TIME <span>RTT</span></div>
+        <div class="metric-value" id="ca-rtt">0 <small>RTTs</small></div>
+        <div class="metric-foot">Elapsed transmission rounds</div>
+      </article>
 
-    <p id="ca-status">Press Start to begin simulation.</p>
+      <article class="metric-card accent-blue">
+        <div class="metric-label">CONGESTION WINDOW <span>cwnd</span></div>
+        <div class="metric-value" id="ca-cwnd">1.00 <small>MSS</small></div>
+        <div class="metric-foot">Sender's current window size</div>
+      </article>
 
-    <h2>Simulation Results</h2>
+      <article class="metric-card accent-amber">
+        <div class="metric-label">SLOW-START THRESHOLD <span>ssthresh</span></div>
+        <div class="metric-value" id="ca-threshold">8 <small>MSS</small></div>
+        <div class="metric-foot">Boundary between growth modes</div>
+      </article>
 
-    <table>
-        <thead>
+      <article class="metric-card accent-green">
+        <div class="metric-label">TCP PHASE</div>
+        <div class="metric-value phase-value" id="ca-phase">Slow Start</div>
+        <div class="metric-foot" id="ca-phase-detail">Exponential growth</div>
+      </article>
+    </section>
+
+    <!-- GRAPH AND CONTROLS -->
+    <section class="workspace">
+
+      <article class="panel graph-panel">
+        <div class="panel-heading">
+          <div>
+            <div class="section-kicker">LIVE PERFORMANCE PLOT</div>
+            <h2>Congestion Window vs RTT</h2>
+            <p>Track cwnd growth, threshold crossing and congestion response.</p>
+          </div>
+          <div class="live-tag">
+            <span class="pulse-dot"></span> LIVE
+          </div>
+        </div>
+
+        <div class="chart-wrap">
+          <canvas id="ca-graph"
+                  aria-label="Live graph of congestion window versus RTT"></canvas>
+          <div class="chart-tooltip" id="ca-tooltip" hidden></div>
+        </div>
+
+        <div class="chart-legend">
+          <span><i class="legend-line slow"></i> Slow Start</span>
+          <span><i class="legend-line avoid"></i> Congestion Avoidance</span>
+          <span><i class="legend-line threshold"></i> ssthresh</span>
+          <span><i class="legend-dot loss"></i> Packet loss</span>
+        </div>
+
+        <div class="chart-footer">
+          <span id="ca-chart-note">Waiting for simulation…</span>
+          <span>Y-axis: cwnd (MSS) · X-axis: RTT</span>
+        </div>
+      </article>
+
+      <!-- CONTROL PANEL -->
+      <aside class="panel control-panel">
+        <div class="section-kicker">EXPERIMENT CONTROLS</div>
+        <h2>Configure the network</h2>
+        <p class="panel-intro">
+          Adjust parameters before or during the experiment.
+        </p>
+
+        <div class="control-group">
+          <div class="control-title">
+            <label for="ca-ssthresh">Initial ssthresh</label>
+            <output id="ca-ssthresh-value">8 MSS</output>
+          </div>
+          <input id="ca-ssthresh" type="range"
+                 min="4" max="32" step="1" value="8">
+          <div class="range-labels">
+            <span>4 MSS</span><span>32 MSS</span>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <div class="control-title">
+            <label for="ca-speed">Simulation speed</label>
+            <output id="ca-speed-value">1.0×</output>
+          </div>
+          <input id="ca-speed" type="range"
+                 min="250" max="2000" step="250" value="1000">
+          <div class="range-labels">
+            <span>Fast</span><span>Slow</span>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <div class="control-title">
+            <label for="ca-max-rtt">Simulation duration</label>
+            <output id="ca-max-rtt-value">30 RTTs</output>
+          </div>
+          <input id="ca-max-rtt" type="range"
+                 min="12" max="50" step="2" value="30">
+          <div class="range-labels">
+            <span>12 RTTs</span><span>50 RTTs</span>
+          </div>
+        </div>
+
+        <div class="button-stack">
+          <div class="primary-actions">
+            <button class="btn btn-primary" id="ca-start">▶ Start</button>
+            <button class="btn btn-secondary" id="ca-pause" disabled>Ⅱ Pause</button>
+          </div>
+
+          <button class="btn btn-reset" id="ca-reset">
+            ↺ Reset experiment
+          </button>
+
+          <button class="btn btn-loss" id="ca-loss">
+            ⚡ Trigger packet loss
+          </button>
+        </div>
+
+        <div class="status-box" aria-live="polite">
+          <span class="status-indicator" id="ca-status-dot"></span>
+          <div>
+            <strong id="ca-status">Ready to run</strong>
+            <small id="ca-status-sub">
+              Press Start to begin the experiment.
+            </small>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- ALGORITHM AND EVENT MONITOR -->
+    <section class="lower-grid">
+
+      <article class="panel phase-panel">
+        <div class="panel-heading compact">
+          <div>
+            <div class="section-kicker">TCP STATE</div>
+            <h2>Algorithm progression</h2>
+          </div>
+        </div>
+
+        <div class="phase-track">
+          <div class="phase-step active" id="ca-step-slow">
+            <span>01</span>
+            <div>
+              <b>Slow Start</b>
+              <small>Exponential increase</small>
+            </div>
+          </div>
+
+          <div class="phase-connector"></div>
+
+          <div class="phase-step" id="ca-step-avoid">
+            <span>02</span>
+            <div>
+              <b>Congestion Avoidance</b>
+              <small>Linear increase</small>
+            </div>
+          </div>
+
+          <div class="phase-connector"></div>
+
+          <div class="phase-step" id="ca-step-loss">
+            <span>03</span>
+            <div>
+              <b>Congestion Response</b>
+              <small>Multiplicative decrease</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="explanation" id="ca-explanation">
+          In Slow Start, cwnd grows exponentially. When cwnd reaches
+          ssthresh, TCP enters Congestion Avoidance, where cwnd increases
+          approximately one MSS per RTT.
+        </div>
+      </article>
+
+      <article class="panel event-panel">
+        <div class="panel-heading compact">
+          <div>
+            <div class="section-kicker">EVENT MONITOR</div>
+            <h2>Transmission log</h2>
+          </div>
+          <span class="event-count" id="ca-event-count">0 events</span>
+        </div>
+
+        <div class="event-log" id="ca-event-log" aria-live="polite">
+          <div class="empty-log">
+            No events yet. Start the simulation to observe TCP behavior.
+          </div>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- OBSERVATION TABLE -->
+    <section class="panel data-panel">
+      <div class="panel-heading compact">
+        <div>
+          <div class="section-kicker">MEASURED OUTPUT</div>
+          <h2>RTT observation table</h2>
+          <p>
+            Each row records the sender's congestion-control state after one RTT.
+          </p>
+        </div>
+
+        <button class="btn btn-export" id="ca-export">
+          ↓ Export CSV
+        </button>
+      </div>
+
+      <div class="table-scroll">
+        <table>
+          <thead>
             <tr>
-                <th>RTT</th>
-                <th>cwnd (MSS)</th>
-                <th>Phase</th>
+              <th>RTT</th>
+              <th>cwnd (MSS)</th>
+              <th>ssthresh (MSS)</th>
+              <th>TCP phase</th>
+              <th>Event</th>
             </tr>
-        </thead>
-        <tbody id="ca-table-body"></tbody>
-    </table>
+          </thead>
+          <tbody id="ca-table-body">
+            <tr class="empty-row">
+              <td colspan="5">No observations recorded yet.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-</section>
+    <footer class="lab-footer">
+      <span>DCN · TCP CONGESTION AVOIDANCE</span>
+      <span>Concept model for learning · TCP Reno-style response</span>
+    </footer>
 
-<script src="congestion-avoidance.js"></script>
+  </main>
+
+  <script src="congestion-avoidance.js"></script>
 </body>
 </html>
