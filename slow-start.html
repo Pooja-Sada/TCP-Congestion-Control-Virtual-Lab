@@ -1,104 +1,245 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TCP Congestion Control - Slow Start</title>
+    <title>TCP Slow Start Virtual Lab</title>
     <link rel="stylesheet" href="slow-start.css">
-    <script src="slow-start.js" defer></script>
 </head>
-
 <body>
 
-    <div class="container">
+<header class="theory-header">
+    <a href="index.html" class="back-link">← Back to Virtual Lab</a>
+    <span class="header-label">TCP CONGESTION CONTROL</span>
+</header>
 
-        <header class="header">
-            <h1>TCP Congestion Control</h1>
-            <p>Slow Start Simulation</p>
-        </header>
+<main class="theory-container">
 
-        <section class="intro">
-            <h2>Slow Start Phase</h2>
-            <p>
-                Slow Start is a TCP congestion control mechanism.
-                It increases the congestion window exponentially
-                until it reaches the slow start threshold (ssthresh).
+    <section class="hero">
+        <span class="tag">INTERACTIVE VIRTUAL LAB</span>
+        <h1>TCP Slow Start Simulation</h1>
+        <p>
+            Experiment with TCP Slow Start and observe how the
+            congestion window grows exponentially with every RTT.
+        </p>
+    </section>
+
+    <section class="content-section">
+        <h2>01. Simulation Settings</h2>
+
+        <div class="settings-panel">
+            <div class="setting">
+                <label>
+                    Initial CWND:
+                    <strong id="initialValue">1 MSS</strong>
+                </label>
+                <input type="range" id="initialCwnd"
+                       min="1" max="4" value="1">
+            </div>
+
+            <div class="setting">
+                <label>
+                    Slow Start Threshold:
+                    <strong id="thresholdValue">16 MSS</strong>
+                </label>
+                <input type="range" id="threshold"
+                       min="4" max="64" step="4" value="16">
+            </div>
+
+            <div class="setting">
+                <label>
+                    Simulation Speed:
+                    <strong id="speedValue">Normal</strong>
+                </label>
+                <input type="range" id="speed"
+                       min="1" max="3" value="2">
+            </div>
+
+            <button class="secondary-button" id="applySettings">
+                Apply Settings
+            </button>
+            <p class="setting-note" id="settingsMessage">
+                Change the values and apply them before starting.
             </p>
-        </section>
+        </div>
+    </section>
 
-        <!-- Simulation Dashboard -->
-        <section class="dashboard">
+    <section class="content-section">
+        <h2>02. Live Packet Transmission</h2>
 
-            <div class="stat-card">
-                <h3>Congestion Window</h3>
-                <div class="stat-value" id="cwnd">1 MSS</div>
-                <p>Current CWND</p>
+        <div class="network-panel">
+            <div class="network-flow">
+
+                <div class="network-node">
+                    <span>💻</span>
+                    <strong>Sender</strong>
+                </div>
+
+                <div class="packet-track">
+                    <div class="flow-line"></div>
+                    <div class="packet" id="dataPacket">●</div>
+                    <small>DATA →</small>
+                </div>
+
+                <div class="network-node">
+                    <span>🖥️</span>
+                    <strong>Receiver</strong>
+                </div>
+
+            </div>
+
+            <div class="ack-track">
+                <span>← ACKNOWLEDGEMENT</span>
+                <div class="ack-packet" id="ackPacket">●</div>
+            </div>
+
+            <p class="network-message" id="networkMessage">
+                Press Start to begin transmission.
+            </p>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <h2>03. Live Simulation Statistics</h2>
+
+        <div class="stats-grid">
+
+            <div class="stat-card active-stat">
+                <span>CWND</span>
+                <strong id="cwndStat">1 MSS</strong>
             </div>
 
             <div class="stat-card">
-                <h3>Slow Start Threshold</h3>
-                <div class="stat-value" id="ssthresh">16 MSS</div>
-                <p>Threshold value</p>
+                <span>SSTHRESH</span>
+                <strong id="ssthreshStat">16 MSS</strong>
             </div>
 
             <div class="stat-card">
-                <h3>Round Trip Time</h3>
-                <div class="stat-value" id="rtt">0</div>
-                <p>RTT count</p>
+                <span>RTT</span>
+                <strong id="rttStat">0</strong>
             </div>
 
-        </section>
-
-        <!-- Simulation Controls -->
-        <section class="simulation">
-
-            <h2>Simulation Controls</h2>
-
-            <div class="controls">
-                <button id="startBtn">Start</button>
-                <button id="pauseBtn">Pause</button>
-                <button id="resetBtn">Reset</button>
+            <div class="stat-card">
+                <span>ACK COUNT</span>
+                <strong id="ackStat">0</strong>
             </div>
 
-            <div class="status">
-                <h3>Current Phase</h3>
-                <p id="phase">Ready to Start</p>
+        </div>
+
+        <div class="phase-status" id="phaseStatusBox">
+            <span>CURRENT PHASE</span>
+            <strong id="phaseStatus">SLOW START</strong>
+            <p id="phaseMessage">
+                Ready to begin exponential CWND growth.
+            </p>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <h2>04. Interactive CWND Growth Graph</h2>
+
+        <div class="graph-panel">
+
+            <div class="graph-heading">
+                <div>
+                    <h3>Congestion Window vs RTT</h3>
+                    <p>Watch the Slow Start growth in real time.</p>
+                </div>
+
+                <span class="graph-legend">
+                    <i></i> Slow Start
+                </span>
             </div>
 
-        </section>
+            <canvas id="cwndGraph"></canvas>
 
-        <!-- Congestion Window Growth -->
-        <section class="graph-section">
-
-            <h2>Congestion Window Growth</h2>
-
-            <p>
-                Observe how CWND doubles after every RTT
-                during the Slow Start phase.
+            <p class="graph-note">
+                X-axis: RTT | Y-axis: CWND (MSS)
             </p>
 
-            <div class="graph-container">
-                <canvas id="growthChart"></canvas>
+            <div class="graph-caption">
+                <span>● Blue line: CWND growth</span>
+                <span>● Yellow dashed line: SSTHRESH</span>
             </div>
 
-        </section>
+        </div>
+    </section>
 
-        <!-- RTT Information -->
-        <section class="rtt-section">
+    <section class="content-section">
+        <h2>05. Predict the Next CWND</h2>
 
-            <h2>RTT Progress</h2>
+        <div class="prediction-panel">
+            <p id="predictionQuestion">
+                Start the simulation, then predict the next CWND value.
+            </p>
 
-            <div id="rttHistory">
-                <p>Simulation has not started yet.</p>
+            <div class="prediction-options" id="predictionOptions">
+                <button class="prediction-option" disabled>Waiting...</button>
             </div>
 
-        </section>
+            <p class="prediction-feedback" id="predictionFeedback">
+                Use the exponential growth pattern to predict the next value.
+            </p>
 
-        <footer>
-            <p>TCP Congestion Control Virtual Lab | Slow Start</p>
-        </footer>
+            <button class="secondary-button" id="checkPrediction" disabled>
+                Check Prediction
+            </button>
+        </div>
+    </section>
 
-    </div>
+    <section class="content-section">
+        <h2>06. Simulation Controls</h2>
 
+        <div class="simulation-controls">
+            <button class="primary-button" id="startBtn">
+                ▶ Start
+            </button>
+
+            <button class="secondary-button" id="pauseBtn">
+                Ⅱ Pause
+            </button>
+
+            <button class="secondary-button" id="stepBtn">
+                Next RTT →
+            </button>
+
+            <button class="reset-button" id="resetBtn">
+                ↻ Reset
+            </button>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <h2>07. Step-by-Step Explanation</h2>
+
+        <div class="explanation-box">
+            <span id="stepLabel">READY</span>
+            <h3 id="stepTitle">Simulation not started</h3>
+            <p id="stepExplanation">
+                Press Start for automatic simulation or Next RTT
+                to predict the next congestion window manually.
+            </p>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="completion-panel" id="completionPanel">
+            <span>SIMULATION STATUS</span>
+            <h2 id="completionTitle">Slow Start in Progress</h2>
+            <p id="completionMessage">
+                CWND will increase until it reaches SSTHRESH.
+            </p>
+        </div>
+    </section>
+
+    <footer class="theory-footer">
+        <span>TCP Congestion Control Virtual Lab</span>
+        <span>Module: Slow Start</span>
+    </footer>
+
+</main>
+
+<script src="slow-start.js"></script>
 </body>
 </html>
