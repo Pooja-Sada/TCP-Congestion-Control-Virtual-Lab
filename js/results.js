@@ -1,4 +1,4 @@
-// QUIZ QUESTION BANK
+
 
 const questionBank = [
 
