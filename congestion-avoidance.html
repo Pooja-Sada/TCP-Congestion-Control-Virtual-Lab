@@ -87,6 +87,7 @@
           <span id="ca-chart-note">Waiting for simulation…</span>
           <span>Y-axis: cwnd (MSS) · X-axis: RTT</span>
         </div>
+        <div class="step-feedback" id="ca-step-feedback" aria-live="polite">Each step advances the simulation by exactly one RTT.</div>
       </article>
 
       <!-- CONTROL PANEL -->
@@ -138,6 +139,8 @@
             <button class="btn btn-primary" id="ca-start">▶ Start</button>
             <button class="btn btn-secondary" id="ca-pause" disabled>Ⅱ Pause</button>
           </div>
+
+          <button class="btn btn-secondary" id="ca-step" type="button">⏭ Next RTT (Step)</button>
 
           <button class="btn btn-reset" id="ca-reset">
             ↺ Reset experiment

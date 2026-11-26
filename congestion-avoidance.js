@@ -13,7 +13,8 @@
     thresholdInput:$("ca-ssthresh"), thresholdOutput:$("ca-ssthresh-value"),
     speed:$("ca-speed"), speedOutput:$("ca-speed-value"), maxRtt:$("ca-max-rtt"),
     maxRttOutput:$("ca-max-rtt-value"), start:$("ca-start"), pause:$("ca-pause"),
-    reset:$("ca-reset"), loss:$("ca-loss"), export:$("ca-export")
+    reset:$("ca-reset"), loss:$("ca-loss"), export:$("ca-export"),
+    step:$("ca-step"), stepFeedback:$("ca-step-feedback")
   };
 
   const state = {
@@ -81,6 +82,7 @@
 
     els.start.disabled = state.running || state.rtt>=state.maxRtt;
     els.pause.disabled = !state.running;
+    els.step.disabled = state.running || state.rtt>=state.maxRtt;
     els.loss.disabled = state.rtt===0 || state.rtt>=state.maxRtt;
 
     els.note.textContent = state.rtt===0 ?
@@ -126,7 +128,7 @@
     $("ca-explanation").textContent=text;
   }
 
-  function tick() {
+  function tick(manual=false) {
     if(state.rtt>=state.maxRtt) {
       pause();
       setStatus("Experiment completed",`Recorded ${state.rtt} RTT rounds.`);
@@ -159,7 +161,16 @@
 
     record(event);
 
-    if(state.phase==="Slow Start") {
+    const latest = state.history[state.history.length-1];
+    const stepMessage =
+      `RTT ${latest.rtt}: cwnd = ${latest.cwnd.toFixed(2)} MSS; ` +
+      `ssthresh = ${latest.ssthresh.toFixed(2)} MSS; phase = ${latest.phase}.`;
+
+    if(els.stepFeedback) els.stepFeedback.textContent = stepMessage;
+
+    if(manual) {
+      setStatus("Advanced by one RTT",stepMessage);
+    } else if(state.phase==="Slow Start") {
       setStatus("Slow Start active","cwnd is increasing exponentially.","running");
     } else {
       setStatus("Congestion Avoidance active","cwnd is increasing by approximately 1 MSS per RTT.","running");
@@ -169,6 +180,11 @@
       pause();
       setStatus("Experiment completed",`Recorded ${state.rtt} RTT rounds.`);
     }
+  }
+
+  function stepOnce() {
+    if(state.running || state.rtt>=state.maxRtt) return;
+    tick(true);
   }
 
   function start() {
@@ -223,6 +239,9 @@
     updateUI();
     drawGraph();
 
+    if(els.stepFeedback) {
+      els.stepFeedback.textContent = "Ready. Use Start for automatic playback or Next RTT to advance one round at a time.";
+    }
     setStatus("Ready to run","Press Start to begin the experiment.");
   }
 
@@ -369,6 +388,20 @@
       ctx.fill();
     }
 
+    const latest=state.history[state.history.length-1];
+    if(latest) {
+      ctx.beginPath();
+      ctx.arc(X(latest.rtt),Y(latest.cwnd),7,0,Math.PI*2);
+      ctx.strokeStyle="#ffffff";
+      ctx.lineWidth=1.8;
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(X(latest.rtt),Y(latest.cwnd),10,0,Math.PI*2);
+      ctx.strokeStyle="rgba(73,166,255,0.45)";
+      ctx.lineWidth=1;
+      ctx.stroke();
+    }
+
     const first=state.history[0];
 
     ctx.beginPath();
@@ -442,6 +475,7 @@
 
   els.start.addEventListener("click",start);
   els.pause.addEventListener("click",pause);
+  els.step.addEventListener("click",stepOnce);
   els.reset.addEventListener("click",reset);
   els.loss.addEventListener("click",triggerLoss);
 
