@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TCP Animation Lab</title>
+    <link rel="stylesheet" href="tcp-animation.css">
+</head>
+<body>
+
+    <header class="header">
+        <h1>TCP Congestion Control</h1>
+        <p>Interactive Animation Virtual Lab</p>
+    </header>
+
+    <nav class="topic-tabs">
+        <button class="tab active" data-topic="slow-start">Slow Start</button>
+        <button class="tab" data-topic="congestion-avoidance">Congestion Avoidance</button>
+        <button class="tab" data-topic="loss-recovery">Loss & Recovery</button>
+        <button class="tab" data-topic="fast-retransmit">Fast Retransmit</button>
+        <button class="tab" data-topic="fast-recovery">Fast Recovery</button>
+        <button class="tab" data-topic="timeout">Timeout</button>
+    </nav>
+
+    <main class="main-content">
+        <section class="intro">
+            <h2 id="topic-title">Slow Start</h2>
+            <p id="topic-description">
+                Observe how TCP increases its congestion window exponentially
+                during the Slow Start phase.
+            </p>
+        </section>
+
+        <section class="animation-panel">
+            <div class="panel-heading">
+                <h3>Packet Transmission Animation</h3>
+                <span id="phase-status">READY</span>
+            </div>
+
+            <div id="animation-area">
+                <div class="network-node" id="sender">
+                    <span>💻</span>
+                    <strong>Sender</strong>
+                </div>
+
+                <div class="network-path">
+                    <div class="packet-track" id="packet-track"></div>
+                </div>
+
+                <div class="network-node" id="receiver">
+                    <span>🖥️</span>
+                    <strong>Receiver</strong>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button id="start-btn">Start Animation</button>
+                <button id="pause-btn">Pause</button>
+                <button id="reset-btn">Reset</button>
+            </div>
+        </section>
+
+        <section class="info-panel">
+            <h3>What's Happening?</h3>
+            <p id="explanation">
+                Click Start Animation to observe packet transmission.
+            </p>
+        </section>
+    </main>
+
+    <script src="tcp-animation.js"></script>
+</body>
+</html>
