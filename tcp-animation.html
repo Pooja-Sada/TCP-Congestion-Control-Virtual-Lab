@@ -2,73 +2,147 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TCP Animation Lab</title>
-    <link rel="stylesheet" href="tcp-animation.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TCP Congestion Control | Animation Lab</title>
+  <link rel="stylesheet" href="tcp-animation.css">
 </head>
 <body>
+  <header class="hero">
+    <div class="eyebrow">COMPUTER NETWORKS · INTERACTIVE VIRTUAL LAB</div>
+    <h1>TCP Congestion Control</h1>
+    <p>Watch how TCP sends data, detects congestion, and recovers from packet loss.</p>
+  </header>
 
-    <header class="header">
-        <h1>TCP Congestion Control</h1>
-        <p>Interactive Animation Virtual Lab</p>
-    </header>
+  <nav class="topic-tabs" aria-label="TCP topics">
+    <button class="tab active" data-topic="slow-start">01 · Slow Start</button>
+    <button class="tab" data-topic="congestion-avoidance">02 · Congestion Avoidance</button>
+    <button class="tab" data-topic="loss-recovery">03 · Loss &amp; Recovery</button>
+    <button class="tab" data-topic="fast-retransmit">04 · Fast Retransmit</button>
+    <button class="tab" data-topic="fast-recovery">05 · Fast Recovery</button>
+    <button class="tab" data-topic="timeout">06 · Timeout</button>
+  </nav>
 
-    <nav class="topic-tabs">
-        <button class="tab active" data-topic="slow-start">Slow Start</button>
-        <button class="tab" data-topic="congestion-avoidance">Congestion Avoidance</button>
-        <button class="tab" data-topic="loss-recovery">Loss & Recovery</button>
-        <button class="tab" data-topic="fast-retransmit">Fast Retransmit</button>
-        <button class="tab" data-topic="fast-recovery">Fast Recovery</button>
-        <button class="tab" data-topic="timeout">Timeout</button>
-    </nav>
+  <main class="layout">
+    <section class="intro">
+      <div>
+        <div class="eyebrow" id="topic-kicker">TCP MECHANISM 01</div>
+        <h2 id="topic-title">Slow Start</h2>
+        <p id="topic-description">TCP begins with a small congestion window and increases it exponentially.</p>
+      </div>
+      <div class="phase-pill" id="phase-status">READY</div>
+    </section>
 
-    <main class="main-content">
-        <section class="intro">
-            <h2 id="topic-title">Slow Start</h2>
-            <p id="topic-description">
-                Observe how TCP increases its congestion window exponentially
-                during the Slow Start phase.
-            </p>
-        </section>
+    <section class="metrics">
+      <article class="metric">
+        <span>ROUND TRIP TIME</span>
+        <strong id="rtt-value">0</strong>
+        <small>RTT rounds</small>
+      </article>
+      <article class="metric">
+        <span>CONGESTION WINDOW</span>
+        <strong><b id="cwnd-value">1</b> <i>MSS</i></strong>
+        <small>Current sending window</small>
+      </article>
+      <article class="metric">
+        <span>SLOW-START THRESHOLD</span>
+        <strong><b id="ssthresh-value">8</b> <i>MSS</i></strong>
+        <small>ssthresh</small>
+      </article>
+      <article class="metric">
+        <span>PACKETS IN FLIGHT</span>
+        <strong id="flight-value">0</strong>
+        <small>Visible packet count</small>
+      </article>
+    </section>
 
-        <section class="animation-panel">
-            <div class="panel-heading">
-                <h3>Packet Transmission Animation</h3>
-                <span id="phase-status">READY</span>
-            </div>
+    <section class="panel network-panel">
+      <div class="panel-head">
+        <div>
+          <div class="eyebrow">LIVE NETWORK VIEW</div>
+          <h3 id="visual-title">Exponential packet growth</h3>
+        </div>
+        <span class="legend">
+          <i class="dot data-dot"></i> Data
+          <i class="dot ack-dot"></i> ACK
+          <i class="dot lost-dot"></i> Lost
+        </span>
+      </div>
 
-            <div id="animation-area">
-                <div class="network-node" id="sender">
-                    <span>💻</span>
-                    <strong>Sender</strong>
-                </div>
+      <div class="network" id="network">
+        <div class="endpoint sender">
+          <div class="device">▣</div>
+          <strong>Sender</strong>
+          <small>TCP source</small>
+        </div>
 
-                <div class="network-path">
-                    <div class="packet-track" id="packet-track"></div>
-                </div>
+        <div class="channel">
+          <div class="lane-label">DATA</div>
+          <div class="lane data-lane" id="data-lane"></div>
 
-                <div class="network-node" id="receiver">
-                    <span>🖥️</span>
-                    <strong>Receiver</strong>
-                </div>
-            </div>
+          <div class="lane-label ack-label">ACK</div>
+          <div class="lane ack-lane" id="ack-lane"></div>
 
-            <div class="controls">
-                <button id="start-btn">Start Animation</button>
-                <button id="pause-btn">Pause</button>
-                <button id="reset-btn">Reset</button>
-            </div>
-        </section>
+          <div class="network-note" id="network-note">Press Start to begin transmission</div>
+        </div>
 
-        <section class="info-panel">
-            <h3>What's Happening?</h3>
-            <p id="explanation">
-                Click Start Animation to observe packet transmission.
-            </p>
-        </section>
-    </main>
+        <div class="endpoint receiver">
+          <div class="device">▤</div>
+          <strong>Receiver</strong>
+          <small>TCP destination</small>
+        </div>
+      </div>
 
-    <script src="tcp-animation.js"></script>
+      <div class="controls">
+        <button class="primary" id="start-btn">▶ Start animation</button>
+        <button id="pause-btn">Ⅱ Pause</button>
+        <button id="step-btn">↦ Next RTT</button>
+        <button id="reset-btn">↺ Reset</button>
+
+        <label class="speed-control">
+          Speed
+          <select id="speed-select">
+            <option value="1">Normal</option>
+            <option value="0.65">Fast</option>
+            <option value="1.6">Slow</option>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <section class="lower-grid">
+      <article class="panel graph-panel">
+        <div class="panel-head">
+          <div>
+            <div class="eyebrow">LIVE PERFORMANCE</div>
+            <h3>Congestion window (cwnd)</h3>
+          </div>
+          <span class="unit">MSS</span>
+        </div>
+
+        <canvas id="cwnd-chart" height="220" aria-label="Congestion window graph"></canvas>
+
+        <div class="graph-caption">
+          <span><i class="line-key"></i> cwnd</span>
+          <span><i class="line-key threshold-key"></i> ssthresh</span>
+        </div>
+      </article>
+
+      <article class="panel explanation-panel">
+        <div class="eyebrow">STEP-BY-STEP EXPLANATION</div>
+        <h3 id="event-title">Ready to transmit</h3>
+        <p id="explanation">Start the animation to see how this TCP mechanism works.</p>
+        <div class="event-log" id="event-log">
+          <div class="log-empty">Your simulation events will appear here.</div>
+        </div>
+      </article>
+    </section>
+
+    <footer>
+      Educational simulation · Simplified TCP Reno-style behaviour · Not a packet-level network emulator
+    </footer>
+  </main>
+
+  <script src="tcp-animation.js"></script>
 </body>
 </html>
