@@ -68,6 +68,21 @@
           <i class="dot lost-dot"></i> Lost
         </span>
       </div>
+      <div class="controls">
+  <button class="primary" id="start-btn">▶ Start animation</button>
+  <button id="pause-btn">Ⅱ Pause</button>
+  <button id="step-btn">↦ Next RTT</button>
+  <button id="reset-btn">↺ Reset</button>
+
+  <label class="speed-control">
+    Speed
+    <select id="speed-select">
+      <option value="1">Normal</option>
+      <option value="0.65">Fast</option>
+      <option value="1.6">Slow</option>
+    </select>
+  </label>
+</div>
 
       <div class="network" id="network">
         <div class="endpoint sender">
