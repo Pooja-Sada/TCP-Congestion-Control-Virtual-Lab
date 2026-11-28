@@ -178,63 +178,357 @@ $("initialCwnd").addEventListener("input", e => $("initialCwndOut").textContent 
 $("threshold").addEventListener("input", e => $("thresholdOut").textContent = `${e.target.value} MSS`);
 $("speed").addEventListener("input", e => $("speedOut").textContent = `${(Number(e.target.value)/2).toFixed(1)}×`);
 
+// ================= QUIZ QUESTION BANK =================
+
 const questions = [
-  {q:"What does cwnd represent in TCP?",a:["The receiver's IP address","The sender's congestion window","The number of routers","The physical link speed"],correct:1,why:"cwnd limits the amount of unacknowledged data the sender can have in the network."},
-  {q:"How does cwnd approximately grow during Slow Start in this model?",a:["It halves every RTT","It stays constant","It doubles each RTT","It increases by exactly 1 byte"],correct:2,why:"Slow Start produces approximately exponential growth, doubling cwnd per RTT."},
-  {q:"What is the approximate cwnd increase per RTT during Congestion Avoidance?",a:["1 MSS","10 MSS","It doubles","It becomes zero"],correct:0,why:"Congestion Avoidance uses approximately linear growth of 1 MSS per RTT."},
-  {q:"In TCP Reno, what can three duplicate ACKs trigger?",a:["A new IP address","Fast Retransmit and Fast Recovery","Permanent shutdown","A DNS lookup"],correct:1,why:"Three duplicate ACKs are used as a loss signal and trigger Fast Retransmit and Fast Recovery."},
-  {q:"What happens to cwnd after a retransmission timeout in this teaching model?",a:["It doubles","It remains unchanged","It returns to 1 MSS","It becomes equal to the router queue"],correct:2,why:"A timeout causes a stronger reduction: cwnd returns to 1 MSS and Slow Start begins again."}
+    {
+        q: "What does cwnd represent in TCP?",
+        a: ["Receiver's IP address", "Sender's congestion window", "Number of routers", "Physical link speed"],
+        correct: 1,
+        why: "cwnd represents the congestion window and controls how much unacknowledged data can be sent."
+    },
+    {
+        q: "How does cwnd grow during Slow Start?",
+        a: ["It doubles approximately every RTT", "It decreases every RTT", "It remains constant", "It increases by one byte"],
+        correct: 0,
+        why: "Slow Start produces approximately exponential growth."
+    },
+    {
+        q: "How does cwnd grow during Congestion Avoidance?",
+        a: ["Exponentially", "It becomes zero", "Approximately 1 MSS per RTT", "It remains constant"],
+        correct: 2,
+        why: "Congestion Avoidance uses approximately linear growth."
+    },
+    {
+        q: "What can three duplicate ACKs trigger in TCP Reno?",
+        a: ["DNS lookup", "Fast Retransmit", "Connection shutdown", "IP address change"],
+        correct: 1,
+        why: "Three duplicate ACKs trigger Fast Retransmit and Fast Recovery."
+    },
+    {
+        q: "What happens to cwnd after a timeout in this model?",
+        a: ["It doubles", "It remains unchanged", "It returns to 1 MSS", "It becomes 100 MSS"],
+        correct: 2,
+        why: "A timeout causes cwnd to return to 1 MSS in this teaching model."
+    },
+    {
+        q: "What is the full form of MSS?",
+        a: ["Maximum Segment Size", "Minimum Server Speed", "Maximum Signal Strength", "Multiple Segment System"],
+        correct: 0,
+        why: "MSS stands for Maximum Segment Size."
+    },
+    {
+        q: "What does RTT stand for?",
+        a: ["Real Transfer Time", "Round Trip Time", "Router Transmission Type", "Random Time Transfer"],
+        correct: 1,
+        why: "RTT is the time taken for a packet to travel to the destination and for its acknowledgement to return."
+    },
+    {
+        q: "Which TCP mechanism controls the sender's transmission rate?",
+        a: ["DNS", "ARP", "Congestion Control", "HTTP"],
+        correct: 2,
+        why: "Congestion Control adjusts the sending rate according to network conditions."
+    },
+    {
+        q: "What is ssthresh?",
+        a: ["Slow Start Threshold", "Segment Size Transfer", "Server Start Time", "Signal Strength Threshold"],
+        correct: 0,
+        why: "ssthresh is the threshold used to switch between Slow Start and Congestion Avoidance."
+    },
+    {
+        q: "Which phase uses exponential growth?",
+        a: ["Fast Recovery", "Slow Start", "Congestion Avoidance", "Termination"],
+        correct: 1,
+        why: "Slow Start increases cwnd exponentially."
+    },
+    {
+        q: "Which phase uses linear growth?",
+        a: ["Slow Start", "Fast Retransmit", "Congestion Avoidance", "Connection Setup"],
+        correct: 2,
+        why: "Congestion Avoidance increases cwnd approximately linearly."
+    },
+    {
+        q: "What does packet loss usually indicate?",
+        a: ["Network congestion may have occurred", "The connection is faster", "The receiver is switched off", "The IP address has changed"],
+        correct: 0,
+        why: "Packet loss can indicate congestion in the network."
+    },
+    {
+        q: "What is the purpose of Fast Retransmit?",
+        a: ["To change IP addresses", "To retransmit a lost segment quickly", "To close the connection", "To increase MSS"],
+        correct: 1,
+        why: "Fast Retransmit retransmits a segment without waiting for a timeout."
+    },
+    {
+        q: "What is the unit commonly used for cwnd in this simulation?",
+        a: ["Volts", "Seconds", "MSS", "Hertz"],
+        correct: 2,
+        why: "The congestion window is represented in MSS units."
+    },
+    {
+        q: "What does an ACK indicate?",
+        a: ["Acknowledgement of received data", "A packet loss", "A network failure", "A new connection"],
+        correct: 0,
+        why: "ACK confirms that data has been received."
+    },
+    {
+        q: "Which protocol provides reliable data transmission?",
+        a: ["UDP", "TCP", "IP only", "ARP"],
+        correct: 1,
+        why: "TCP provides reliable, ordered data transmission."
+    },
+    {
+        q: "What happens when the congestion window increases?",
+        a: ["The sender can send more unacknowledged data", "The receiver is disconnected", "The packet size becomes zero", "The connection automatically closes"],
+        correct: 0,
+        why: "A larger cwnd allows more data to be in transit before acknowledgements arrive."
+    },
+    {
+        q: "Which event is used as a congestion signal in TCP?",
+        a: ["Successful DNS lookup", "Packet loss", "Opening a webpage", "Changing a port number"],
+        correct: 1,
+        why: "Packet loss is commonly treated as a sign of possible network congestion."
+    },
+    {
+        q: "What is the main objective of TCP congestion control?",
+        a: ["Increase screen resolution", "Prevent network congestion", "Change the destination IP", "Encrypt every packet"],
+        correct: 1,
+        why: "It helps prevent excessive traffic from overwhelming the network."
+    },
+    {
+        q: "What does Fast Recovery help avoid?",
+        a: ["Returning to Slow Start unnecessarily after certain loss events", "Sending acknowledgements", "Using TCP", "Receiving packets"],
+        correct: 0,
+        why: "Fast Recovery helps TCP Reno recover from certain packet-loss events without restarting Slow Start immediately."
+    }
 ];
-let qIndex = 0, score = 0, answered = false;
-function renderQuestion() {
-  const q = questions[qIndex];
-  $("quizCount").textContent = `QUESTION ${qIndex+1} OF ${questions.length}`;
-  $("quizScore").textContent = `SCORE: ${score}`;
-  $("quizProgress").style.width = `${((qIndex+1)/questions.length)*100}%`;
-  $("questionText").textContent = q.q;
-  $("quizFeedback").textContent = "";
-  $("nextQuestion").disabled = true;
-  $("nextQuestion").textContent = qIndex === questions.length-1 ? "See score →" : "Next question →";
-  $("answerOptions").innerHTML = "";
-  answered = false;
-  q.a.forEach((answer, i) => {
-    const b = document.createElement("button");
-    b.className = "answer-option";
-    b.textContent = `${String.fromCharCode(65+i)}. ${answer}`;
-    b.addEventListener("click", () => chooseAnswer(i));
-    $("answerOptions").appendChild(b);
-  });
+
+
+// ================= QUIZ STATE =================
+
+let remainingQuestions = [];
+let currentQuiz = [];
+let currentQuestionIndex = 0;
+let userAnswers = [];
+let quizSubmitted = false;
+
+
+// ================= SHUFFLE FUNCTION =================
+
+function shuffleArray(array) {
+    const shuffled = [...array];
+
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+
+    return shuffled;
 }
-function chooseAnswer(index) {
-  if (answered) return;
-  answered = true;
-  const q = questions[qIndex];
-  [...$("answerOptions").children].forEach((b, i) => {
-    b.disabled = true;
-    if (i === q.correct) b.classList.add("correct");
-    if (i === index && i !== q.correct) b.classList.add("wrong");
-  });
-  if (index === q.correct) {score++; $("quizFeedback").textContent = `Correct! ${q.why}`;}
-  else $("quizFeedback").textContent = `Not quite. ${q.why}`;
-  $("quizScore").textContent = `SCORE: ${score}`;
-  $("nextQuestion").disabled = false;
+
+
+// ================= GET NEXT 5 QUESTIONS =================
+
+function startNewQuiz() {
+
+    // Refill only after the question bank is exhausted
+    if (remainingQuestions.length < 5) {
+        remainingQuestions = shuffleArray(questions);
+    }
+
+    currentQuiz = remainingQuestions.splice(0, 5);
+
+    // Shuffle answer options while preserving correct answers
+    currentQuiz = currentQuiz.map(question => {
+
+        const options = question.a.map((answer, index) => ({
+            text: answer,
+            isCorrect: index === question.correct
+        }));
+
+        const shuffledOptions = shuffleArray(options);
+
+        return {
+            ...question,
+            a: shuffledOptions.map(option => option.text),
+            correct: shuffledOptions.findIndex(option => option.isCorrect)
+        };
+    });
+
+    currentQuestionIndex = 0;
+    userAnswers = [];
+    quizSubmitted = false;
+
+    $("restartQuiz").style.display = "none";
+    $("nextQuestion").style.display = "inline-block";
+    $("nextQuestion").textContent = "Next Question";
+
+    $("quizFeedback").textContent =
+        "Answer all 5 questions. Correct answers will appear after submission.";
+
+    renderQuizQuestion();
 }
+
+
+// ================= DISPLAY QUESTION =================
+
+function renderQuizQuestion() {
+
+    const question = currentQuiz[currentQuestionIndex];
+
+    $("quizCount").textContent =
+        `Question ${currentQuestionIndex + 1} / 5`;
+
+    $("quizProgress").style.width =
+        `${((currentQuestionIndex + 1) / 5) * 100}%`;
+
+    $("questionText").textContent = question.q;
+
+    $("quizScore").textContent =
+        `Answered: ${userAnswers.filter(answer => answer !== null).length}/5`;
+
+    $("quizFeedback").textContent =
+        "Choose one answer to continue.";
+
+    const optionsContainer = $("answerOptions");
+    optionsContainer.innerHTML = "";
+
+    question.a.forEach((answer, index) => {
+
+        const button = document.createElement("button");
+
+        button.className = "answer-option";
+        button.textContent = answer;
+
+        if (userAnswers[currentQuestionIndex] === index) {
+            button.classList.add("selected");
+        }
+
+       button.addEventListener("click", () => {
+
+        if (quizSubmitted) return;
+
+          userAnswers[currentQuestionIndex] = index;
+
+          $("nextQuestion").disabled = false;
+
+          renderQuizQuestion();
+
+       });
+
+        optionsContainer.appendChild(button);
+    });
+
+    $("nextQuestion").textContent =
+        currentQuestionIndex === 4 ? "Submit Quiz" : "Next Question";
+}
+
+
+// ================= NEXT QUESTION / SUBMIT =================
+
 $("nextQuestion").addEventListener("click", () => {
-  if (qIndex < questions.length-1) {qIndex++; renderQuestion();}
-  else {
-    $("questionText").textContent = `Quiz complete! You scored ${score} out of ${questions.length}.`;
-    $("answerOptions").innerHTML = "";
-    $("quizFeedback").textContent = score >= 4 ? "Excellent work. You understand the main TCP congestion-control concepts." : "Review the Theory section and try again to strengthen your understanding.";
-    $("nextQuestion").disabled = true;
-    $("quizCount").textContent = "COMPLETED";
-  }
+
+    if (quizSubmitted) return;
+
+    if (userAnswers[currentQuestionIndex] === undefined) {
+        $("quizFeedback").textContent =
+            "Please select an answer before continuing.";
+        return;
+    }
+
+    if (currentQuestionIndex < 4) {
+
+        currentQuestionIndex++;
+        renderQuizQuestion();
+
+    } else {
+
+        submitQuiz();
+    }
 });
-$("restartQuiz").addEventListener("click", () => {qIndex=0;score=0;renderQuestion();});
+
+
+// ================= SUBMIT QUIZ =================
+
+function submitQuiz() {
+
+    quizSubmitted = true;
+
+    let score = 0;
+
+    const feedback = $("quizFeedback");
+    feedback.innerHTML = "";
+
+    currentQuiz.forEach((question, index) => {
+
+        const selectedAnswer = userAnswers[index];
+        const isCorrect = selectedAnswer === question.correct;
+
+        if (isCorrect) score++;
+
+        const review = document.createElement("div");
+
+        review.className = "quiz-review-item";
+
+        const questionHeading = document.createElement("h4");
+        questionHeading.textContent =
+            `${index + 1}. ${question.q}`;
+
+        const yourAnswer = document.createElement("p");
+        yourAnswer.textContent =
+            `Your answer: ${question.a[selectedAnswer]}`;
+
+        const correctAnswer = document.createElement("p");
+        correctAnswer.textContent =
+            `Correct answer: ${question.a[question.correct]}`;
+
+        const explanation = document.createElement("p");
+        explanation.textContent =
+            `Explanation: ${question.why}`;
+
+        const result = document.createElement("strong");
+        result.textContent = isCorrect ? "Correct" : "Incorrect";
+
+        review.classList.add(isCorrect ? "correct" : "wrong");
+
+        review.appendChild(questionHeading);
+        review.appendChild(yourAnswer);
+        review.appendChild(correctAnswer);
+        review.appendChild(explanation);
+        review.appendChild(result);
+
+        feedback.appendChild(review);
+    });
+
+    $("quizScore").textContent = `Final Score: ${score}/5`;
+
+    $("questionText").textContent = "Quiz Completed!";
+
+    $("quizCount").textContent = "5 / 5";
+
+    $("quizProgress").style.width = "100%";
+
+    $("answerOptions").innerHTML = "";
+
+    $("nextQuestion").style.display = "none";
+
+    $("restartQuiz").style.display = "inline-block";
+    $("restartQuiz").textContent = "Restart Quiz";
+}
+
+
+// ================= RESTART QUIZ =================
+
+$("restartQuiz").addEventListener("click", () => {
+    startNewQuiz();
+});
+
 
 state = makeInitialState();
 state.message = "Ready. Start the simulation to transmit packets.";
 setupChart();
 updateUI();
+<<<<<<< HEAD
 renderQuestion();
 
 
@@ -329,3 +623,6 @@ document.querySelectorAll(".phase-card").forEach(card => {
     card.classList.add("selected");
   });
 });
+=======
+ startNewQuiz();
+>>>>>>> shakthi-results
