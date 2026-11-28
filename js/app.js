@@ -160,7 +160,14 @@ function showPage(pageName) {
 }
 
 document.querySelectorAll("[data-go]").forEach(btn => btn.addEventListener("click", () => showPage(btn.dataset.go)));
-document.querySelectorAll(".nav-link").forEach(link => link.addEventListener("click", e => {e.preventDefault(); showPage(link.dataset.page);}));
+document.querySelectorAll(".nav-link").forEach(link => {
+  link.addEventListener("click", e => {
+    if (link.dataset.page) {
+      e.preventDefault();
+      showPage(link.dataset.page);
+    }
+  });
+});
 $("menuToggle").addEventListener("click", () => $("mainNav").classList.toggle("open"));
 $("startBtn").addEventListener("click", startTimer);
 $("pauseBtn").addEventListener("click", stopTimer);
