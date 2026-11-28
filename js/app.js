@@ -528,8 +528,7 @@ state = makeInitialState();
 state.message = "Ready. Start the simulation to transmit packets.";
 setupChart();
 updateUI();
-<<<<<<< HEAD
-renderQuestion();
+
 
 
 
@@ -623,6 +622,6 @@ document.querySelectorAll(".phase-card").forEach(card => {
     card.classList.add("selected");
   });
 });
-=======
+
  startNewQuiz();
->>>>>>> shakthi-results
+
