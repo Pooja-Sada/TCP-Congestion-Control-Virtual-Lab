@@ -1,351 +1,192 @@
+// ========================================
+// TCP CONGESTION CONTROL QUIZ
+// ========================================
 
+// Number of questions per quiz
+const QUESTIONS_PER_QUIZ = 5;
 
+// Question bank
 const questionBank = [
 
-{
-    question: "What is TCP congestion control?",
-    options: [
-        "Managing network congestion",
-        "Increasing file size",
-        "Deleting packets",
-        "Changing IP address"
-    ],
-    answer: "Managing network congestion"
-},
+    {
+        question: "What does CWND represent in TCP?",
+        options: [
+            "Receiver IP address",
+            "Sender's congestion window",
+            "Number of routers",
+            "Physical link speed"
+        ],
+        answer: "Sender's congestion window"
+    },
 
-{
-    question: "Which phase increases CWND exponentially?",
-    options: [
-        "Fast Recovery",
-        "Slow Start",
-        "Congestion Avoidance",
-        "Timeout"
-    ],
-    answer: "Slow Start"
-},
+    {
+        question: "How does CWND grow during Slow Start?",
+        options: [
+            "It halves every RTT",
+            "It remains constant",
+            "It approximately doubles every RTT",
+            "It becomes zero"
+        ],
+        answer: "It approximately doubles every RTT"
+    },
 
-{
-    question: "Which phase increases CWND linearly?",
-    options: [
-        "Slow Start",
-        "Fast Recovery",
-        "Congestion Avoidance",
-        "Connection Termination"
-    ],
-    answer: "Congestion Avoidance"
-},
+    {
+        question: "What is the growth pattern during Congestion Avoidance?",
+        options: [
+            "Linear growth",
+            "Exponential decrease",
+            "No growth",
+            "Immediate reset"
+        ],
+        answer: "Linear growth"
+    },
 
-{
-    question: "What does RTT stand for?",
-    options: [
-        "Real Time Transfer",
-        "Round Trip Time",
-        "Random Transfer Time",
-        "Reliable Transmission Technique"
-    ],
-    answer: "Round Trip Time"
-},
+    {
+        question: "What can three duplicate ACKs trigger in TCP Reno?",
+        options: [
+            "Fast Retransmit and Fast Recovery",
+            "Permanent shutdown",
+            "DNS lookup",
+            "New IP address"
+        ],
+        answer: "Fast Retransmit and Fast Recovery"
+    },
 
-{
-    question: "What does CWND represent?",
-    options: [
-        "Congestion Window",
-        "Connection Width",
-        "Control Window Data",
-        "Current Web Network"
-    ],
-    answer: "Congestion Window"
-},
+    {
+        question: "What happens to CWND after a timeout in this model?",
+        options: [
+            "It doubles",
+            "It remains unchanged",
+            "It returns to 1 MSS",
+            "It becomes unlimited"
+        ],
+        answer: "It returns to 1 MSS"
+    },
 
-{
-    question: "What is the full form of MSS?",
-    options: [
-        "Maximum Segment Size",
-        "Minimum Signal Speed",
-        "Maximum Server System",
-        "Main Switching Signal"
-    ],
-    answer: "Maximum Segment Size"
-},
+    {
+        question: "What does RTT stand for?",
+        options: [
+            "Round Trip Time",
+            "Real Transfer Technology",
+            "Router Transmission Time",
+            "Reliable Transfer Test"
+        ],
+        answer: "Round Trip Time"
+    },
 
-{
-    question: "What happens during Slow Start?",
-    options: [
-        "CWND increases exponentially",
-        "CWND remains constant",
-        "CWND becomes zero",
-        "Packets are deleted"
-    ],
-    answer: "CWND increases exponentially"
-},
+    {
+        question: "What is the purpose of SSTHRESH?",
+        options: [
+            "To store IP addresses",
+            "To define the threshold between TCP growth phases",
+            "To measure cable length",
+            "To calculate packet size"
+        ],
+        answer: "To define the threshold between TCP growth phases"
+    },
 
-{
-    question: "What is the purpose of SSThresh?",
-    options: [
-        "To control the transition between TCP phases",
-        "To increase packet size",
-        "To calculate IP address",
-        "To terminate a connection"
-    ],
-    answer: "To control the transition between TCP phases"
-},
+    {
+        question: "Which phase uses approximately linear CWND growth?",
+        options: [
+            "Slow Start",
+            "Congestion Avoidance",
+            "Connection Setup",
+            "Connection Termination"
+        ],
+        answer: "Congestion Avoidance"
+    },
 
-{
-    question: "Which algorithm is used in Congestion Avoidance?",
-    options: [
-        "AIMD",
-        "RSA",
-        "DES",
-        "AES"
-    ],
-    answer: "AIMD"
-},
+    {
+        question: "What does packet loss indicate?",
+        options: [
+            "All packets arrived successfully",
+            "One or more packets failed to reach their destination",
+            "The network speed increased",
+            "The connection became wireless"
+        ],
+        answer: "One or more packets failed to reach their destination"
+    },
 
-{
-    question: "What does AIMD stand for?",
-    options: [
-        "Additive Increase Multiplicative Decrease",
-        "Automatic Internet Management Data",
-        "Advanced Input Multiple Design",
-        "Additive Information Maximum Delivery"
-    ],
-    answer: "Additive Increase Multiplicative Decrease"
-},
+    {
+        question: "What is the main purpose of TCP congestion control?",
+        options: [
+            "To prevent network congestion",
+            "To increase screen resolution",
+            "To change IP addresses",
+            "To reduce computer memory"
+        ],
+        answer: "To prevent network congestion"
+    },
 
-{
-    question: "What indicates packet loss in TCP?",
-    options: [
-        "Duplicate ACKs or timeout",
-        "Successful delivery",
-        "Increased file size",
-        "IP address change"
-    ],
-    answer: "Duplicate ACKs or timeout"
-},
+    {
+        question: "Which protocol provides reliable data transmission?",
+        options: [
+            "UDP",
+            "TCP",
+            "IP only",
+            "ARP"
+        ],
+        answer: "TCP"
+    },
 
-{
-    question: "What is the function of ACK?",
-    options: [
-        "Acknowledges received data",
-        "Deletes packets",
-        "Changes network address",
-        "Increases transmission delay"
-    ],
-    answer: "Acknowledges received data"
-},
+    {
+        question: "What happens when CWND reaches SSTHRESH?",
+        options: [
+            "Congestion Avoidance begins",
+            "The connection closes",
+            "CWND becomes zero",
+            "The IP address changes"
+        ],
+        answer: "Congestion Avoidance begins"
+    },
 
-{
-    question: "What happens when TCP detects congestion?",
-    options: [
-        "Transmission rate is reduced",
-        "Transmission rate always doubles",
-        "Connection becomes wireless",
-        "All packets are removed"
-    ],
-    answer: "Transmission rate is reduced"
-},
+    {
+        question: "Which TCP mechanism detects loss using duplicate ACKs?",
+        options: [
+            "Fast Retransmit",
+            "DNS",
+            "ARP",
+            "DHCP"
+        ],
+        answer: "Fast Retransmit"
+    },
 
-{
-    question: "Which mechanism detects lost segments using duplicate ACKs?",
-    options: [
-        "Fast Retransmit",
-        "Slow Start",
-        "Flow Control",
-        "DNS"
-    ],
-    answer: "Fast Retransmit"
-},
+    {
+        question: "What does MSS stand for?",
+        options: [
+            "Maximum Segment Size",
+            "Minimum Server Speed",
+            "Main Switching System",
+            "Maximum Signal Strength"
+        ],
+        answer: "Maximum Segment Size"
+    },
 
-{
-    question: "What is the main purpose of Fast Recovery?",
-    options: [
-        "Recover from packet loss without restarting Slow Start",
-        "Increase IP address size",
-        "Stop all communication",
-        "Remove acknowledgements"
-    ],
-    answer: "Recover from packet loss without restarting Slow Start"
-},
-
-{
-    question: "Which protocol provides reliable data transmission?",
-    options: [
-        "TCP",
-        "UDP",
-        "IP",
-        "ARP"
-    ],
-    answer: "TCP"
-},
-
-{
-    question: "What does UDP stand for?",
-    options: [
-        "User Datagram Protocol",
-        "Universal Data Process",
-        "User Delivery Program",
-        "Unified Datagram Process"
-    ],
-    answer: "User Datagram Protocol"
-},
-
-{
-    question: "Which TCP mechanism controls the sender's transmission rate?",
-    options: [
-        "Congestion Control",
-        "DNS",
-        "ARP",
-        "Address Resolution"
-    ],
-    answer: "Congestion Control"
-},
-
-{
-    question: "What happens to CWND after a timeout in traditional TCP Reno?",
-    options: [
-        "It is reset to 1 MSS",
-        "It doubles",
-        "It remains unchanged",
-        "It becomes infinite"
-    ],
-    answer: "It is reset to 1 MSS"
-},
-
-{
-    question: "What is the main purpose of a sliding window?",
-    options: [
-        "Control the amount of unacknowledged data",
-        "Change the destination address",
-        "Increase packet loss",
-        "Delete received data"
-    ],
-    answer: "Control the amount of unacknowledged data"
-},
-
-{
-    question: "What does the congestion window limit?",
-    options: [
-        "Amount of data sent before receiving acknowledgements",
-        "Number of IP addresses",
-        "Size of the computer memory",
-        "Number of network cables"
-    ],
-    answer: "Amount of data sent before receiving acknowledgements"
-},
-
-{
-    question: "Which layer does TCP belong to?",
-    options: [
-        "Transport Layer",
-        "Network Layer",
-        "Physical Layer",
-        "Application Layer"
-    ],
-    answer: "Transport Layer"
-},
-
-{
-    question: "What is congestion in a network?",
-    options: [
-        "Excessive traffic in the network",
-        "Absence of computers",
-        "Increase in screen brightness",
-        "Failure of a keyboard"
-    ],
-    answer: "Excessive traffic in the network"
-},
-
-{
-    question: "What is the purpose of a retransmission timer?",
-    options: [
-        "Detect possible packet loss",
-        "Increase packet size",
-        "Assign IP addresses",
-        "Calculate file names"
-    ],
-    answer: "Detect possible packet loss"
-},
-
-{
-    question: "What does duplicate ACK indicate?",
-    options: [
-        "A segment may be missing",
-        "All data is deleted",
-        "The connection is encrypted",
-        "The network is disconnected permanently"
-    ],
-    answer: "A segment may be missing"
-},
-
-{
-    question: "What is the full form of TCP?",
-    options: [
-        "Transmission Control Protocol",
-        "Transfer Communication Process",
-        "Transmission Computer Program",
-        "Transport Connection Process"
-    ],
-    answer: "Transmission Control Protocol"
-},
-
-{
-    question: "Which TCP phase follows Slow Start when CWND reaches SSThresh?",
-    options: [
-        "Congestion Avoidance",
-        "Connection Termination",
-        "Fast Retransmit",
-        "Timeout"
-    ],
-    answer: "Congestion Avoidance"
-},
-
-{
-    question: "What is the purpose of flow control?",
-    options: [
-        "Prevent a sender from overwhelming the receiver",
-        "Increase network congestion",
-        "Change packet headers",
-        "Remove TCP acknowledgements"
-    ],
-    answer: "Prevent a sender from overwhelming the receiver"
-},
-
-{
-    question: "Which value is commonly used to measure network delay?",
-    options: [
-        "RTT",
-        "MSS",
-        "CWND",
-        "IP address"
-    ],
-    answer: "RTT"
-},
-
-{
-    question: "What does multiplicative decrease mean in AIMD?",
-    options: [
-        "Reducing CWND by a factor",
-        "Increasing CWND by one",
-        "Keeping CWND constant",
-        "Removing all acknowledgements"
-    ],
-    answer: "Reducing CWND by a factor"
-}
+    {
+        question: "Which TCP Reno phase follows Fast Recovery?",
+        options: [
+            "Congestion Avoidance",
+            "Connection Setup",
+            "Network Shutdown",
+            "DNS Resolution"
+        ],
+        answer: "Congestion Avoidance"
+    }
 
 ];
 
-
+// ========================================
 // QUIZ VARIABLES
+// ========================================
 
 let remainingQuestions = [];
 let currentQuiz = [];
 let currentQuestion = 0;
 let userAnswers = [];
 
-const QUESTIONS_PER_QUIZ = 10;
-
-
+// ========================================
 // SHUFFLE FUNCTION
+// ========================================
 
 function shuffleArray(array) {
 
@@ -363,8 +204,9 @@ function shuffleArray(array) {
     return shuffled;
 }
 
-
+// ========================================
 // START NEW QUIZ
+// ========================================
 
 function startNewQuiz() {
 
@@ -374,10 +216,12 @@ function startNewQuiz() {
 
     }
 
-    currentQuiz = remainingQuestions.splice(0, QUESTIONS_PER_QUIZ);
+    currentQuiz = remainingQuestions.splice(
+        0,
+        QUESTIONS_PER_QUIZ
+    );
 
     currentQuestion = 0;
-
     userAnswers = [];
 
     document.getElementById("resultBox").style.display = "none";
@@ -387,45 +231,39 @@ function startNewQuiz() {
     document.getElementById("submitButton").style.display = "none";
 
     loadQuestion();
-
 }
 
-
-// DISPLAY QUESTION
+// ========================================
+// LOAD QUESTION
+// ========================================
 
 function loadQuestion() {
 
-    let q = currentQuiz[currentQuestion];
-
-    // Shuffle alternatives
-
-    let shuffledOptions = shuffleArray(q.options);
-
-    q.displayOptions = shuffledOptions;
+    const q = currentQuiz[currentQuestion];
 
     document.getElementById("questionNumber").textContent =
-        "Question " + (currentQuestion + 1) + " of 10";
+        `Question ${currentQuestion + 1} of ${QUESTIONS_PER_QUIZ}`;
 
     document.getElementById("question").textContent = q.question;
 
-    let optionsDiv = document.getElementById("options");
+    const optionsDiv = document.getElementById("options");
 
     optionsDiv.innerHTML = "";
 
-    shuffledOptions.forEach((option, index) => {
+    const shuffledOptions = shuffleArray(q.options);
 
-        let button = document.createElement("button");
+    shuffledOptions.forEach(option => {
 
-        button.textContent = option;
+        const button = document.createElement("button");
 
         button.className = "option";
 
-        button.onclick = function() {
+        button.textContent = option;
+
+        button.onclick = function () {
 
             document.querySelectorAll(".option").forEach(btn => {
-
                 btn.classList.remove("selected");
-
             });
 
             button.classList.add("selected");
@@ -438,8 +276,7 @@ function loadQuestion() {
 
     });
 
-
-    if (currentQuestion === 9) {
+    if (currentQuestion === QUESTIONS_PER_QUIZ - 1) {
 
         document.getElementById("nextButton").style.display = "none";
 
@@ -452,11 +289,11 @@ function loadQuestion() {
         document.getElementById("submitButton").style.display = "none";
 
     }
-
 }
 
-
+// ========================================
 // NEXT QUESTION
+// ========================================
 
 function nextQuestion() {
 
@@ -471,11 +308,11 @@ function nextQuestion() {
     currentQuestion++;
 
     loadQuestion();
-
 }
 
-
-// SUBMIT QUIZ AND SHOW ANSWERS
+// ========================================
+// SUBMIT QUIZ
+// ========================================
 
 function submitQuiz() {
 
@@ -489,51 +326,50 @@ function submitQuiz() {
 
     let score = 0;
 
-    let review = "";
+    let reviewHTML = "";
 
     currentQuiz.forEach((q, index) => {
 
-        let userAnswer = userAnswers[index];
+        const userAnswer = userAnswers[index];
 
-        let correct = userAnswer === q.answer;
+        const correctAnswer = q.answer;
 
-        if (correct) {
+        const isCorrect = userAnswer === correctAnswer;
+
+        if (isCorrect) {
 
             score++;
 
         }
 
-        review += `
-
+        reviewHTML += `
             <div class="answer-review">
 
-                <p><b>Q${index + 1}. ${q.question}</b></p>
+                <h4>Question ${index + 1}: ${q.question}</h4>
 
-                <p>Your Answer: ${userAnswer}</p>
+                <p>Your answer: ${userAnswer}</p>
 
-                <p>Correct Answer: ${q.answer}</p>
+                <p>Correct answer: ${correctAnswer}</p>
 
-                <p>${correct ? "Correct!" : "Incorrect!"}</p>
-
-                <hr>
+                <strong>
+                    ${isCorrect ? "Correct!" : "Incorrect!"}
+                </strong>
 
             </div>
-
         `;
 
     });
 
-
     document.getElementById("score").textContent =
-        "Your Score: " + score + " / 10";
+        `Your Score: ${score} / ${QUESTIONS_PER_QUIZ}`;
 
-    document.getElementById("answerReview").innerHTML = review;
+    document.getElementById("answerReview").innerHTML = reviewHTML;
 
     document.getElementById("resultBox").style.display = "block";
 
     document.getElementById("question").textContent = "Quiz Completed!";
 
-    document.getElementById("questionNumber").textContent = "Your answers and results are shown below.";
+    document.getElementById("questionNumber").textContent = "Completed";
 
     document.getElementById("options").innerHTML = "";
 
@@ -543,8 +379,9 @@ function submitQuiz() {
 
 }
 
-
-// START FIRST QUIZ
+// ========================================
+// INITIALIZE QUIZ
+// ========================================
 
 remainingQuestions = shuffleArray(questionBank);
 
