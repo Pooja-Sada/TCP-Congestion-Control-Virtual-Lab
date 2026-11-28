@@ -8,3 +8,85 @@
     background: #193653;
     color: white;
 }
+
+/* =================================
+   PTU UNIVERSITY HEADER
+================================= */
+
+.university-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+
+    width: 100%;
+    padding: 22px 35px;
+
+    background: #07549B;
+    color: #ffffff;
+    border-bottom: 1px solid #315779;
+}
+
+.university-logo img {
+    width: 105px;
+    height: 105px;
+    object-fit: contain;
+
+    background: white;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.university-details {
+    text-align: center;
+}
+
+.university-details h1 {
+    font-size: 27px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: 0;
+    margin: 0 0 8px;
+    color: white;
+}
+
+.university-details h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 8px;
+    color: #E6C5FF;
+}
+
+.university-details h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0;
+    color: #B9F5E8;
+}
+
+/* MOBILE RESPONSIVENESS */
+
+@media (max-width: 650px) {
+
+    .university-header {
+        padding: 15px 10px;
+        gap: 12px;
+    }
+
+    .university-logo img {
+        width: 65px;
+        height: 65px;
+    }
+
+    .university-details h1 {
+        font-size: 15px;
+    }
+
+    .university-details h2 {
+        font-size: 11px;
+    }
+
+    .university-details h3 {
+        font-size: 11px;
+    }
+}
