@@ -333,8 +333,6 @@ const questionBank = [
 }
 
 ];
-
-
 // QUIZ VARIABLES
 
 let remainingQuestions = [];
@@ -342,22 +340,19 @@ let currentQuiz = [];
 let currentQuestion = 0;
 let userAnswers = [];
 
-const QUESTIONS_PER_QUIZ = 10;
+const QUESTIONS_PER_QUIZ = 5;
 
 
 // SHUFFLE FUNCTION
 
 function shuffleArray(array) {
-
     let shuffled = [...array];
 
     for (let i = shuffled.length - 1; i > 0; i--) {
-
         let j = Math.floor(Math.random() * (i + 1));
 
         [shuffled[i], shuffled[j]] =
         [shuffled[j], shuffled[i]];
-
     }
 
     return shuffled;
@@ -368,26 +363,30 @@ function shuffleArray(array) {
 
 function startNewQuiz() {
 
-    if (remainingQuestions.length < QUESTIONS_PER_QUIZ) {
+    currentQuiz = [];
 
-        remainingQuestions = shuffleArray(questionBank);
+    // Select 5 questions without repeating until the bank is exhausted
+    while (currentQuiz.length < QUESTIONS_PER_QUIZ) {
 
+        if (remainingQuestions.length === 0) {
+            remainingQuestions = shuffleArray(questionBank);
+        }
+
+        let needed = QUESTIONS_PER_QUIZ - currentQuiz.length;
+
+        let selected = remainingQuestions.splice(0, needed);
+
+        currentQuiz.push(...selected);
     }
 
-    currentQuiz = remainingQuestions.splice(0, QUESTIONS_PER_QUIZ);
-
     currentQuestion = 0;
-
     userAnswers = [];
 
     document.getElementById("resultBox").style.display = "none";
-
     document.getElementById("nextButton").style.display = "inline-block";
-
     document.getElementById("submitButton").style.display = "none";
 
     loadQuestion();
-
 }
 
 
@@ -397,14 +396,12 @@ function loadQuestion() {
 
     let q = currentQuiz[currentQuestion];
 
-    // Shuffle alternatives
-
     let shuffledOptions = shuffleArray(q.options);
 
     q.displayOptions = shuffledOptions;
 
     document.getElementById("questionNumber").textContent =
-        "Question " + (currentQuestion + 1) + " of 10";
+        "Question " + (currentQuestion + 1) + " of 5";
 
     document.getElementById("question").textContent = q.question;
 
@@ -412,34 +409,33 @@ function loadQuestion() {
 
     optionsDiv.innerHTML = "";
 
-    shuffledOptions.forEach((option, index) => {
+    shuffledOptions.forEach(option => {
 
         let button = document.createElement("button");
 
         button.textContent = option;
-
         button.className = "option";
+
+        if (userAnswers[currentQuestion] === option) {
+            button.classList.add("selected");
+        }
 
         button.onclick = function() {
 
             document.querySelectorAll(".option").forEach(btn => {
-
                 btn.classList.remove("selected");
-
             });
 
             button.classList.add("selected");
 
             userAnswers[currentQuestion] = option;
-
         };
 
         optionsDiv.appendChild(button);
-
     });
 
 
-    if (currentQuestion === 9) {
+    if (currentQuestion === QUESTIONS_PER_QUIZ - 1) {
 
         document.getElementById("nextButton").style.display = "none";
 
@@ -450,9 +446,7 @@ function loadQuestion() {
         document.getElementById("nextButton").style.display = "inline-block";
 
         document.getElementById("submitButton").style.display = "none";
-
     }
-
 }
 
 
@@ -461,34 +455,26 @@ function loadQuestion() {
 function nextQuestion() {
 
     if (userAnswers[currentQuestion] === undefined) {
-
         alert("Please select an answer!");
-
         return;
-
     }
 
     currentQuestion++;
 
     loadQuestion();
-
 }
 
 
-// SUBMIT QUIZ AND SHOW ANSWERS
+// SUBMIT QUIZ
 
 function submitQuiz() {
 
     if (userAnswers[currentQuestion] === undefined) {
-
         alert("Please select an answer!");
-
         return;
-
     }
 
     let score = 0;
-
     let review = "";
 
     currentQuiz.forEach((q, index) => {
@@ -498,13 +484,10 @@ function submitQuiz() {
         let correct = userAnswer === q.answer;
 
         if (correct) {
-
             score++;
-
         }
 
         review += `
-
             <div class="answer-review">
 
                 <p><b>Q${index + 1}. ${q.question}</b></p>
@@ -513,19 +496,19 @@ function submitQuiz() {
 
                 <p>Correct Answer: ${q.answer}</p>
 
-                <p>${correct ? "Correct!" : "Incorrect!"}</p>
+                <p class="${correct ? "correct-answer" : "wrong-answer"}">
+                    ${correct ? "Correct!" : "Incorrect!"}
+                </p>
 
                 <hr>
 
             </div>
-
         `;
-
     });
 
 
     document.getElementById("score").textContent =
-        "Your Score: " + score + " / 10";
+        "Your Score: " + score + " / 5";
 
     document.getElementById("answerReview").innerHTML = review;
 
@@ -533,14 +516,14 @@ function submitQuiz() {
 
     document.getElementById("question").textContent = "Quiz Completed!";
 
-    document.getElementById("questionNumber").textContent = "Your answers and results are shown below.";
+    document.getElementById("questionNumber").textContent =
+        "Your answers and results are shown below.";
 
     document.getElementById("options").innerHTML = "";
 
     document.getElementById("nextButton").style.display = "none";
 
     document.getElementById("submitButton").style.display = "none";
-
 }
 
 
