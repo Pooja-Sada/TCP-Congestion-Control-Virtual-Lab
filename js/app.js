@@ -390,7 +390,6 @@ function renderQuizQuestion() {
 
         const button = document.createElement("button");
 
-        button.type = "button";  // ADD THIS LINE
         button.className = "answer-option";
         button.textContent = answer;
 
@@ -398,17 +397,17 @@ function renderQuizQuestion() {
             button.classList.add("selected");
         }
 
-        button.addEventListener("click", () => {
+       button.addEventListener("click", () => {
 
-         if (quizSubmitted) return;
+        if (quizSubmitted) return;
 
-           userAnswers[currentQuestionIndex] = index;
+          userAnswers[currentQuestionIndex] = index;
 
           $("nextQuestion").disabled = false;
 
-         renderQuizQuestion();
+          renderQuizQuestion();
 
-});
+       });
 
         optionsContainer.appendChild(button);
     });
@@ -522,4 +521,4 @@ state = makeInitialState();
 state.message = "Ready. Start the simulation to transmit packets.";
 setupChart();
 updateUI();
-startNewQuiz();
+ startNewQuiz();
