@@ -1,150 +1,100 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TCP Congestion Control | Animation Lab</title>
-  <link rel="stylesheet" href="tcp-animation.css">
+  <title>TCP Congestion Control – Virtual Lab</title>
+  <link rel="stylesheet" href="animation.css">
 </head>
 <body>
-  <header class="hero">
-    <div class="eyebrow">COMPUTER NETWORKS · INTERACTIVE VIRTUAL LAB</div>
-    <h1>TCP Congestion Control</h1>
-    <p>Watch how TCP sends data, detects congestion, and recovers from packet loss.</p>
-  </header>
+  <main class="lab">
+    <header class="topbar">
+      <div><p class="eyebrow">DATA COMMUNICATION NETWORKS · TCP RENO</p><h1>TCP Congestion Control</h1></div>
+      <nav class="tabs" aria-label="Main navigation">
+        <a href="#theory">Theory</a><a class="active" href="#animation">Animation</a><a href="#experiment">Experiment</a>
+      </nav>
+    </header>
 
-  <nav class="topic-tabs" aria-label="TCP topics">
-    <button class="tab active" data-topic="slow-start">01 · Slow Start</button>
-    <button class="tab" data-topic="congestion-avoidance">02 · Congestion Avoidance</button>
-    <button class="tab" data-topic="loss-recovery">03 · Loss &amp; Recovery</button>
-    <button class="tab" data-topic="fast-retransmit">04 · Fast Retransmit</button>
-    <button class="tab" data-topic="fast-recovery">05 · Fast Recovery</button>
-    <button class="tab" data-topic="timeout">06 · Timeout</button>
-  </nav>
-
-  <main class="layout">
-    <section class="intro">
-      <div>
-        <div class="eyebrow" id="topic-kicker">TCP MECHANISM 01</div>
-        <h2 id="topic-title">Slow Start</h2>
-        <p id="topic-description">TCP begins with a small congestion window and increases it exponentially.</p>
-      </div>
-      <div class="phase-pill" id="phase-status">READY</div>
-    </section>
-
-    <section class="metrics">
-      <article class="metric">
-        <span>ROUND TRIP TIME</span>
-        <strong id="rtt-value">0</strong>
-        <small>RTT rounds</small>
-      </article>
-      <article class="metric">
-        <span>CONGESTION WINDOW</span>
-        <strong><b id="cwnd-value">1</b> <i>MSS</i></strong>
-        <small>Current sending window</small>
-      </article>
-      <article class="metric">
-        <span>SLOW-START THRESHOLD</span>
-        <strong><b id="ssthresh-value">8</b> <i>MSS</i></strong>
-        <small>ssthresh</small>
-      </article>
-      <article class="metric">
-        <span>PACKETS IN FLIGHT</span>
-        <strong id="flight-value">0</strong>
-        <small>Visible packet count</small>
-      </article>
-    </section>
-
-    <section class="panel network-panel">
-      <div class="panel-head">
-        <div>
-          <div class="eyebrow">LIVE NETWORK VIEW</div>
-          <h3 id="visual-title">Exponential packet growth</h3>
-        </div>
-        <span class="legend">
-          <i class="dot data-dot"></i> Data
-          <i class="dot ack-dot"></i> ACK
-          <i class="dot lost-dot"></i> Lost
-        </span>
+    <section id="animation" class="panel">
+      <div class="heading-row">
+        <div><p class="eyebrow">INTERACTIVE VIRTUAL LAB</p><h2>Packet transmission & congestion recovery</h2>
+        <p class="muted">Follow each data packet, returning ACK and retransmission between sender and receiver.</p></div>
+        <span id="phaseBadge" class="badge">READY</span>
       </div>
 
-      <!-- ANIMATION CONTROLS -->
-      <div class="controls">
-        <button class="primary" id="start-btn">▶ Start animation</button>
-        <button id="pause-btn">Ⅱ Pause</button>
-        <button id="step-btn">↦ Next RTT</button>
-        <button id="reset-btn">↺ Reset</button>
-
-        <label class="speed-control">
-          Speed
-          <select id="speed-select">
-            <option value="1">Normal</option>
-            <option value="0.65">Fast</option>
-            <option value="1.6">Slow</option>
-          </select>
-        </label>
+      <div class="stats">
+        <article><small>CONGESTION WINDOW</small><strong><span id="cwndValue">1</span> MSS</strong></article>
+        <article><small>SLOW-START THRESHOLD</small><strong><span id="ssthreshValue">8</span> MSS</strong></article>
+        <article><small>ROUND TRIP TIME</small><strong id="rttValue">0</strong></article>
+        <article><small>PACKET LOSSES</small><strong id="lossValue">0</strong></article>
       </div>
 
-      <!-- NETWORK ANIMATION -->
-      <div class="network" id="network">
-        <div class="endpoint sender">
-          <div class="device">▣</div>
-          <strong>Sender</strong>
-          <small>TCP source</small>
-        </div>
-
-        <div class="channel">
-          <div class="lane-label">DATA</div>
-          <div class="lane data-lane" id="data-lane"></div>
-
-          <div class="lane-label ack-label">ACK</div>
-          <div class="lane ack-lane" id="ack-lane"></div>
-
-          <div class="network-note" id="network-note">Press Start to begin transmission</div>
-        </div>
-
-        <div class="endpoint receiver">
-          <div class="device">▤</div>
-          <strong>Receiver</strong>
-          <small>TCP destination</small>
-        </div>
-      </div>
-    </section>
-
-    <section class="lower-grid">
-      <article class="panel graph-panel">
-        <div class="panel-head">
-          <div>
-            <div class="eyebrow">LIVE PERFORMANCE</div>
-            <h3>Congestion window (cwnd)</h3>
+      <section class="card network-card">
+        <div class="network-head"><h3>Live packet flow</h3><span id="flowStatus">Waiting to start</span></div>
+        <div class="network" id="network">
+          <div class="endpoint sender"><div class="device-icon">⇧</div><b>Sender</b><small>TCP source</small></div>
+          <div class="lane">
+            <div class="lane-label">DATA PACKETS&nbsp; →</div>
+            <div class="track" id="dataTrack"></div>
+            <div class="lane-label ack-label">← &nbsp;ACKNOWLEDGEMENTS</div>
+            <div class="track ack-track" id="ackTrack"></div>
+            <div class="router"><span>◇</span><small>NETWORK</small></div>
           </div>
-          <span class="unit">MSS</span>
+          <div class="endpoint receiver"><div class="device-icon">⇩</div><b>Receiver</b><small>TCP destination</small></div>
         </div>
-
-        <canvas id="cwnd-chart" height="220" aria-label="Congestion window graph"></canvas>
-
-        <div class="graph-caption">
-          <span><i class="line-key"></i> cwnd</span>
-          <span><i class="line-key threshold-key"></i> ssthresh</span>
+        <div class="event-message" id="eventMessage" aria-live="polite">Press Start to begin packet transmission.</div>
+        <div class="block-key">
+          <span><i class="key data"></i>Data packet</span><span><i class="key ack"></i>ACK</span>
+          <span><i class="key duplicate"></i>Duplicate ACK</span><span><i class="key retransmit"></i>Retransmission</span>
+          <span><i class="key loss"></i>Loss / timeout</span>
         </div>
-      </article>
+      </section>
 
-      <article class="panel explanation-panel">
-        <div class="eyebrow">STEP-BY-STEP EXPLANATION</div>
-        <h3 id="event-title">Ready to transmit</h3>
-        <p id="explanation">Start the animation to see how this TCP mechanism works.</p>
-        <div class="event-log" id="event-log">
-          <div class="log-empty">Your simulation events will appear here.</div>
-        </div>
-      </article>
+      <div class="lower-grid">
+        <section class="card graph-card">
+          <div class="network-head"><h3>Congestion window graph</h3><small>CWND vs RTT</small></div>
+          <canvas id="cwndGraph" height="270" aria-label="Congestion window graph"></canvas>
+          <div class="legend"><span><i class="dot blue"></i>CWND</span><span><i class="dot orange"></i>SSThresh</span><span><i class="dot red"></i>Loss / timeout event</span></div>
+        </section>
+        <section class="card controls">
+          <h3>Simulation controls</h3>
+          <label>Slow-start threshold <output id="thresholdOut">8 MSS</output>
+            <input id="initialThreshold" type="range" min="4" max="32" step="1" value="8">
+          </label>
+          <label>Animation speed <output id="speedOut">1×</output>
+            <input id="speed" type="range" min="1" max="3" step="1" value="1">
+            <small class="field-note">1× is slowest and easiest to observe.</small>
+          </label>
+          <label>Retransmission timeout <output id="rtoOut">3 s</output>
+            <input id="rto" type="range" min="1" max="10" step="1" value="3">
+            <small class="field-note">How long TCP waits before declaring a timeout.</small>
+          </label>
+          <label>Packets to lose <output id="lossCountOut">1 packet</output>
+            <input id="lossCount" type="range" min="1" max="5" step="1" value="1">
+            <small class="field-note">Number of outgoing packets to drop in the next transmission round.</small>
+          </label>
+          <label>Specific packet numbers to lose
+            <input id="lossPacketIds" type="text" inputmode="numeric" placeholder="e.g. 3, 5, 8">
+            <small class="field-note">Optional: enter future packet numbers separated by commas. Leave blank to use the packet-loss count above.</small>
+          </label>
+          <label>Loss event type
+            <select id="lossMode">
+              <option value="duplicate">3 duplicate ACKs – Fast Retransmit + Fast Recovery</option>
+              <option value="timeout">Retransmission timeout</option>
+            </select>
+          </label>
+          <div class="button-row">
+            <button id="startBtn" class="primary">▶ Start</button>
+            <button id="pauseBtn">Ⅱ Pause</button>
+            <button id="resetBtn">↻ Reset</button>
+          </div>
+          <button id="lossBtn" class="danger full">⚡ Trigger packet loss</button>
+          <p class="hint">Start the simulation, then trigger a loss. The selected number of packets will be dropped; the selected recovery method will be shown in the packet lane and graph.</p>
+        </section>
+      </div>
+      <section class="card log-card"><h3>Event log</h3><ol id="eventLog"><li>Simulation ready. Initial CWND = 1 MSS.</li></ol></section>
     </section>
-
-    <footer>
-      Educational simulation · Simplified TCP Reno-style behaviour · Not a packet-level network emulator
-    </footer>
   </main>
-
-  <script src="tcp-animation.js"></script>
+  <script src="animation.js"></script>
 </body>
 </html>
