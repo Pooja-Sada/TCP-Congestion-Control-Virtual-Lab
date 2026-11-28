@@ -1,12 +1,10 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TCP Simulation Results</title>
-    <link rel="stylesheet" href="results.css">
+    <link rel="stylesheet" href="css/results.css">
 </head>
 <body>
 
@@ -50,26 +48,42 @@
             </div>
         </section>
 
-        <section class="quiz-section">
-            <h2>Knowledge Quiz</h2>
-            <p id="questionNumber"></p>
-            <h3 id="question"></h3>
+  <section class="quiz-section">
 
-            <div id="options"></div>
+    <h2>TCP Congestion Control Quiz</h2>
 
-            <p id="feedback"></p>
+    <p id="questionNumber"></p>
 
-            <button id="nextButton" onclick="nextQuestion()">
-                Next Question
-            </button>
+    <h3 id="question"></h3>
 
-            <h3 id="score"></h3>
-        </section>
+    <div id="options"></div>
+
+    <button id="nextButton" onclick="nextQuestion()">
+        Next Question
+    </button>
+
+    <button id="submitButton" onclick="submitQuiz()" style="display:none;">
+        Submit Quiz
+    </button>
+
+    <div id="resultBox" style="display:none;">
+
+        <h2>Quiz Result</h2>
+
+        <h3 id="score"></h3>
+
+        <div id="answerReview"></div>
+
+        <button onclick="startNewQuiz()">
+            Try Another Quiz
+        </button>
 
     </div>
 
+</section>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="results.js"></script>
+   <script src="js/results.js"></script>
 
 </body>
 </html>
