@@ -626,6 +626,6 @@ document.querySelectorAll(".phase-card").forEach(card => {
  startNewQuiz();
 const initialPage = window.location.hash.substring(1);
 
-if (["home", "theory", "experiment", "results", "quiz"].includes(initialPage)) {
+if (["home", "theory", "animation", "experiment", "results", "quiz"].includes(initialPage)) {
   showPage(initialPage);
 }
